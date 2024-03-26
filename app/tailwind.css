@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply antialiased;
+  background-color: rgb(17 20 28);
+  background-repeat: no-repeat;
+  font-family: "Urbanist", sans-serif;
+}
+
+.bg-home-hero-bg {
+  background-image: url(assets/hero-bg.webp);
+}
+
+.bg-main {
+  background-color: rgb(17 20 28);
+}
+
+.vaults-page-grid {
+  display: grid;
+  -moz-column-gap: 1rem;
+  column-gap: 1rem;
+  row-gap: 1rem;
+  grid-template-columns: auto auto auto min-content;
+}
+
+@media (min-width: 900px) {
+  .vaults-page-grid {
+      grid-template-columns: auto auto auto min-content 350px;
+  }
+}
+
+[data-rk] .ju367v2g {
+  height: 48px;
+  border-radius: 1rem;
+}
+
+[data-rk] .ju367va9 {
+  background: #2c313b;
+  border: none;
+}
+
+[data-rk] .ju367va3 {
+  background: #20232c;
+  padding: 6px 15px;
+  border-radius: 1rem;
+}
+[data-rk] .ju367v6 {
+  padding: 0;
+  padding-right: 8px;
+}
+
+[data-rk] .ju367va {
+  font-weight: 400;
+}
+
+[data-rk] .ju367v72 {
+  margin: 4px 0px;
+}
+
+[data-rk] .ju367vei {
+  border-radius: 1rem;
+}
+
+[data-rk] .ju367v1a {
+  margin: 6px;
+}
