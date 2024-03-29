@@ -17,7 +17,7 @@ export const Footer = () => {
           icon={twitterSrc}
           title="Twitter"
           imgSize={32}
-          iconLink="https://twitter.com/PrimeStaked"
+          iconLink="https://twitter.com/zerogfinance"
         />
         <FooterIcon 
           icon={docsSrc}

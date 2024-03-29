@@ -241,15 +241,16 @@ export default function Index() {
       }
     } else if (depositAmountBI <= assetAllowance) {
       // reset stake form
-      setDepositAmount('')
+      const now = new Date()
+      const deadline = new Date(now.getTime() + (7 * 24 * 60 * 60 * 1000))
       contractWrite.writeContract({
-        abi: lrtDepositPoolAbi,
+        abi: xZerogDepositAbi,
         address: contracts.lrtDepositPool[chainId],
         functionName: 'deposit',
         args: [
-          activeAsset.address,
           parseEther(depositAmount),
           0n,
+          Math.floor(deadline.getTime() / 1000),
           getReferrerId(),
         ],
       })
@@ -460,7 +461,7 @@ export default function Index() {
         {approveBtnShow && (
           <button
             className={`${approveBtnDisabled ? 'opacity-60' : 'hover:opacity-90 '
-              } bg-[#83FFD9] text-[#050707] text-md font-semibold px-3 py-4 hover:opacity-90 self-center w-full mt-2 px-6 py-3 md:py-4 rounded-2xl over:opacity-90 self-center w-full mt-2 px-6 py-3 md:py-4 rounded-xl md:rounded-2xl`}
+              } bg-[#83FFD9] text-[#050707] text-md font-semibold px-3 py-4 self-center w-full mt-2 px-6 py-3 md:py-4 rounded-2xl`}
             onClick={() => {
               if (approveBtnDisabled) {
                 return

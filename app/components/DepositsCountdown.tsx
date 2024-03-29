@@ -26,7 +26,7 @@ export const DepositsCountdown = () => {
           <a
             target="_blank"
             rel="noreferrer"
-            href="https://twitter.com/primestaked"
+            href="https://twitter.com/zerogfinance"
             className="px-4 sm:px-8 py-2 sm:py-3 rounded-full leading-tight font-medium hover:bg-white hover:text-black transition-all duration-200 ease-in-out border border-white flex items-center gap-2"
           >
             Visit PrimeStaked on X

@@ -96,7 +96,7 @@ export function Modal({
                       {description}
                     </p>
                   )}
-
+{/* 
                   {buttonText && modalButtonAction && (
                     <button
                       className={`${
@@ -106,7 +106,7 @@ export function Modal({
                     >
                       {buttonText}
                     </button>
-                  )}
+                  )} */}
                   
 
                   {txLink && (

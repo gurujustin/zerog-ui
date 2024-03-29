@@ -152,7 +152,7 @@ export default function Index() {
           <div className="flex flex-row justify-between">
             <div className="flex flex-col md:flex-row mt-8 type-base-medium">
               <a href="https://github.com/" target="_blank" rel="noreferrer" className="mr-10">Github</a>
-              <a href="https://twitter.com/" target="_blank" rel="noreferrer" className="mr-10">Twitter</a>
+              <a href="https://twitter.com/zerogfinance" target="_blank" rel="noreferrer" className="mr-10">Twitter</a>
               <a href="https://discord.com/" target="_blank" rel="noreferrer" className="mr-10">Discord</a>
             </div>
             <div

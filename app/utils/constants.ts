@@ -38,112 +38,114 @@ export interface Protocol {
 }
 
 export const assets = [
-  {
-    symbol: 'ETH',
-    src: ethSrc,
-    name: 'Ethereum',
-    chain: 11155111,
-    chainlogo: ethereumSrc,
-  },
-  { 
-    symbol: 'stETH', 
-    src: stEthSrc, 
-    name: 'Lido Staked ETH', 
-    chain: 11155111,
-    chainlogo: ethereumSrc,
-    address: '0x3e3FE7dBc6B4C189E7128855dD526361c49b40Af'
-  },
-  {
-    symbol: 'WETH',
-    src: wethSrc,
-    name: 'Wrapped ETH',
-    chain: 11155111,
-    chainlogo: ethereumSrc,
-    address: '0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14'
-  },
-  {
-    symbol: 'ETH',
-    src: ethSrc,
-    name: 'Ethereum',
-    chain: 11155420,
-    chainlogo: optimismSrc,
-  },
-  {
-    symbol: 'WETH',
-    src: wethSrc,
-    name: 'Wrapped Ethereum',
-    chain: 11155420,
-    chainlogo: optimismSrc,
-    address: '0x4200000000000000000000000000000000000006'
-  },
+  // Testnets
   // {
   //   symbol: 'ETH',
   //   src: ethSrc,
   //   name: 'Ethereum',
-  //   chain: 1,
+  //   chain: 11155111,
   //   chainlogo: ethereumSrc,
   // },
   // { 
   //   symbol: 'stETH', 
   //   src: stEthSrc, 
   //   name: 'Lido Staked ETH', 
-  //   chain: 1,
+  //   chain: 11155111,
   //   chainlogo: ethereumSrc,
-  //   address: '0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84'
+  //   address: '0x3e3FE7dBc6B4C189E7128855dD526361c49b40Af'
   // },
   // {
-  //   symbol: 'rETH',
-  //   src: rethSrc,
-  //   name: 'Rocket Pool ETH',
-  //   chain: 1,
+  //   symbol: 'WETH',
+  //   src: wethSrc,
+  //   name: 'Wrapped ETH',
+  //   chain: 11155111,
   //   chainlogo: ethereumSrc,
-  //   address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+  //   address: '0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14'
   // },
   // {
   //   symbol: 'ETH',
   //   src: ethSrc,
   //   name: 'Ethereum',
-  //   chain: 10,
+  //   chain: 11155420,
   //   chainlogo: optimismSrc,
   // },
   // {
   //   symbol: 'WETH',
   //   src: wethSrc,
   //   name: 'Wrapped Ethereum',
-  //   chain: 10,
+  //   chain: 11155420,
   //   chainlogo: optimismSrc,
   //   address: '0x4200000000000000000000000000000000000006'
   // },
-  // {
-  //   symbol: 'ETH',
-  //   src: ethSrc,
-  //   name: 'Ethereum',
-  //   chain: 42161,
-  //   chainlogo: arbitrumSrc,
-  // },
-  // {
-  //   symbol: 'WETH',
-  //   src: wethSrc,
-  //   name: 'Wrapped Ethereum',
-  //   chain: 42161,
-  //   chainlogo: arbitrumSrc,
-  //   address: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1'
-  // },
-  // {
-  //   symbol: 'ETH',
-  //   src: ethSrc,
-  //   name: 'Ethereum',
-  //   chain: 8453,
-  //   chainlogo: baseSrc,
-  // },
-  // {
-  //   symbol: 'WETH',
-  //   src: wethSrc,
-  //   name: 'Wrapped Ethereum',
-  //   chain: 8453,
-  //   chainlogo: baseSrc,
-  //   address: '0x4200000000000000000000000000000000000006'
-  // },
+  // Mainnet
+  {
+    symbol: 'ETH',
+    src: ethSrc,
+    name: 'Ethereum',
+    chain: 1,
+    chainlogo: ethereumSrc,
+  },
+  { 
+    symbol: 'stETH', 
+    src: stEthSrc, 
+    name: 'Lido Staked ETH', 
+    chain: 1,
+    chainlogo: ethereumSrc,
+    address: '0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84'
+  },
+  {
+    symbol: 'rETH',
+    src: rethSrc,
+    name: 'Rocket Pool ETH',
+    chain: 1,
+    chainlogo: ethereumSrc,
+    address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+  },
+  {
+    symbol: 'ETH',
+    src: ethSrc,
+    name: 'Ethereum',
+    chain: 10,
+    chainlogo: optimismSrc,
+  },
+  {
+    symbol: 'WETH',
+    src: wethSrc,
+    name: 'Wrapped Ethereum',
+    chain: 10,
+    chainlogo: optimismSrc,
+    address: '0x4200000000000000000000000000000000000006'
+  },
+  {
+    symbol: 'ETH',
+    src: ethSrc,
+    name: 'Ethereum',
+    chain: 42161,
+    chainlogo: arbitrumSrc,
+  },
+  {
+    symbol: 'WETH',
+    src: wethSrc,
+    name: 'Wrapped Ethereum',
+    chain: 42161,
+    chainlogo: arbitrumSrc,
+    address: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1'
+  },
+  {
+    symbol: 'ETH',
+    src: ethSrc,
+    name: 'Ethereum',
+    chain: 8453,
+    chainlogo: baseSrc,
+  },
+  {
+    symbol: 'WETH',
+    src: wethSrc,
+    name: 'Wrapped Ethereum',
+    chain: 8453,
+    chainlogo: baseSrc,
+    address: '0x4200000000000000000000000000000000000006'
+  },
 ] as Asset[]
 
 export const protocols = [
@@ -192,21 +194,33 @@ export const protocols = [
 // Ensure there is a contract address for each asset above
 export const contracts = {
   zgETH: {
-    11155111: '0xA37382c02678290816d9D9e9A2e8eEC0985e1033',
-    11155420: '0xa13fcA83aE6B995726F6D2cFC314675A081AC5C0'
+    // Testnet
+    // 11155111: '0xA37382c02678290816d9D9e9A2e8eEC0985e1033',
+    // 11155420: '0xa13fcA83aE6B995726F6D2cFC314675A081AC5C0'
+    // Mainnet
+    1: '0x17fdeB2fbB8089fea8a7BDb847E49ce67cF863df',
+    10: '0x4B9D5F4e95f6Fe93B4607BFdB43CB6b32cE47aa0',
+    42161: '0xA5E5A6724E99EaBd4CA236633AAb882B7658F287',
+    8453: '0x4B9D5F4e95f6Fe93B4607BFdB43CB6b32cE47aa0'
   },
-  xzgETH: '0xF36dfaCfb3Ec65F1220a502a6e504143591ED1e6',
-  lrtOracle: '0xb1B8449bbafd588Ffb8Fbc4Dd82Cb936d726737D',
+  xzgETH: '0x0e2504dB1ffb0C3f692128f3919CbCAa11c10e8f',
+  lrtOracle: '0xAa6Fd6788fCA604AcFD3FE7e160Fbfcf4F0ef95C',
   lrtDepositPool: {
-    11155111: '0x54F461d0db815919fB50dd3044aE642d6f83bBC6',
-    11155420: '0x6e156039F84a976ff1e02aDa32f55F13a6d06fEc'
+    // Testnet
+    // 11155111: '0x54F461d0db815919fB50dd3044aE642d6f83bBC6',
+    // 11155420: '0x6e156039F84a976ff1e02aDa32f55F13a6d06fEc'
+    // Mainnet
+    1: '0xBcE1eD62786703fc974774A43dFCfeB609AD3329',
+    10: '0x052c3De4979154C687eAc3865c6A7cC784328EfE',
+    42161: '0xae69f9AC9aC9302E2F97B313CaF1fB45a9bB18A6',
+    8453: '0x052c3De4979154C687eAc3865c6A7cC784328EfE'
   },
-  lrtConfig: '0x590AD0d487E06F5854848aAfAB5C0E9F67b2e2d3',
+  lrtConfig: '0x347b65b75Ae5aB97D86032D353aa805c1625fddE',
 } as const
 
 export const lrtOraclePriceMethod = 'zgETHPrice'
 
-export const hubChainId = 11155111
+export const hubChainId = 1
 
 export const depositsEndDate = new Date()
 depositsEndDate.setUTCFullYear(2024, 4, 9)
