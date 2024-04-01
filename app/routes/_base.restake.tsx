@@ -10,7 +10,8 @@ import { zgETHABI, oracleAbi, lrtDepositPoolAbi } from '~/utils/abis'
 import { useAPY } from '~/utils/useAPY'
 import { parseAbi } from 'viem'
 import diagram from '~/assets/how-it-work.png'
-import { formatEth, formatUSD } from '~/utils/bigint'
+import { formatEth, formatUSD, formatPoints } from '~/utils/bigint'
+import { useUserStats } from '~/utils/useUserStats'
 
 export const meta: MetaFunction = () => {
   return [
@@ -71,6 +72,12 @@ export default function Index() {
   }
 
   const [isOpen, setIsOpen] = React.useState(false)
+
+  const { lrtPointRecipientStats, isLoading } = useUserStats()
+
+  const formatDashboardPoints = (val?: bigint | string | undefined) =>
+    val ? formatPoints(val) : isLoading ? '...' : '-'
+
   return (
     <>
       <div className='flex flex-col'>
@@ -102,7 +109,13 @@ export default function Index() {
               <div
                 className="w-4/12 flex flex-col justify-between px-2 py-4 md:p-6 text-gray-400 bg-gray-500 bg-opacity-10 shadow-sm md:rounded-2xl rounded-r-2xl">
                 <div className="text-center space-y-2">
-                  <div className="text-xl lg:text-3xl font-semibold text-white">TBD</div>
+                  <div className="text-xl lg:text-3xl font-semibold text-white">
+                    {formatDashboardPoints(
+                      lrtPointRecipientStats
+                        ? BigInt(lrtPointRecipientStats.points)
+                        : undefined,
+                    )}
+                  </div>
                   <div className="text-xs uppercase opacity-70">Zero-G Points</div>
                 </div>
               </div>
@@ -160,7 +173,13 @@ export default function Index() {
                       </div>
                       <div className="flex flex-row justify-between mt-4">
                         <div className="type-base-medium text-white">Referral Points</div>
-                        <div className="type-base-semibold text-white font-mono">Coming Soon</div>
+                        <div className="type-base-semibold text-white font-mono">
+                          {formatDashboardPoints(
+                            lrtPointRecipientStats
+                              ? BigInt(lrtPointRecipientStats.referralPoints)
+                              : undefined,
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>}
