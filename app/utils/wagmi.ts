@@ -24,7 +24,7 @@ export const config = getDefaultConfig({
   ],
 
   transports: {
-    [mainnet.id]: http('https://eth-mainnet.g.alchemy.com/v2/EP6A_NXNsgvvMTKyz2DWegRdJTliwLT_'),
+    [mainnet.id]: http('https://eth-mainnet.public.blastapi.io'),
     [optimism.id]: http('https://optimism-rpc.publicnode.com'),
     [arbitrum.id]: http('https://endpoints.omniatech.io/v1/arbitrum/one/public'),
     [base.id]: http('https://endpoints.omniatech.io/v1/base/mainnet/public'),
