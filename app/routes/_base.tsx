@@ -151,16 +151,16 @@ export default function Index() {
           </div>
           <div className="flex flex-row justify-between">
             <div className="flex flex-col md:flex-row mt-8 type-base-medium">
-              <a href="https://github.com/" target="_blank" rel="noreferrer" className="mr-10">Github</a>
               <a href="https://twitter.com/zerogfinance" target="_blank" rel="noreferrer" className="mr-10">Twitter</a>
-              <a href="https://discord.com/" target="_blank" rel="noreferrer" className="mr-10">Discord</a>
+              <a href="https://discord.gg/RCGMhkzEZx" target="_blank" rel="noreferrer" className="mr-10">Discord</a>
+              <a href="https://mirror.xyz/zerogfi.eth" target="_blank" rel="noreferrer" className="mr-10">Mirror</a>
             </div>
             <div
               className="flex flex-col md:flex-row md:justify-end type-base-semibold text-gray-200 relative md:-top-8 mt-8 md:mt-0">
-              <a className="mr-10" href="/">Home</a><a href="https://docs.zerog.finance/"
-                target="_blank" rel="noreferrer" className="mr-10">Docs</a><a
-                  href="#"
-                  target="_blank" rel="noreferrer">Audit</a></div>
+              <a className="mr-10" href="https://github.com/zero-g-fi" target='_blank'>Github</a>
+              <a href="https://docs.zerog.finance/" target="_blank" rel="noreferrer" className="mr-10">Docs</a>
+              <a href="#" target="_blank" rel="noreferrer">Audit</a>
+            </div>
           </div>
           <div className="flex flex-col sm:flex-row justify-between sm:items-center my-5 sm:mt-10 text-frenchGray text-sm">
             <div className="">Copyright © 2024 Zerog Finance</div>
