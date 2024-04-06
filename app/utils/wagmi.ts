@@ -1,6 +1,20 @@
 import { http } from 'wagmi'
-import { mainnet, sepolia, arbitrumSepolia, optimism, arbitrum, base, optimismSepolia, baseSepolia } from 'wagmi/chains'
-import { getDefaultConfig } from '@rainbow-me/rainbowkit'
+import {
+  mainnet,
+  sepolia,
+  arbitrumSepolia,
+  optimism,
+  arbitrum,
+  base,
+  optimismSepolia,
+  baseSepolia,
+} from 'wagmi/chains'
+import { connectorsForWallets, getDefaultConfig } from '@rainbow-me/rainbowkit'
+import {
+  okxWallet,
+  rainbowWallet,
+  walletConnectWallet,
+} from '@rainbow-me/rainbowkit/wallets'
 
 // export const config = createConfig({
 //   chains: [mainnet],
@@ -12,6 +26,12 @@ import { getDefaultConfig } from '@rainbow-me/rainbowkit'
 export const config = getDefaultConfig({
   appName: 'Zerog Finance',
   projectId: 'b6187205b37dc9d704772f16dca5b71e',
+  wallets: [
+    {
+      groupName: 'Recommended',
+      wallets: [rainbowWallet, walletConnectWallet, okxWallet],
+    },
+  ],
   chains: [
     mainnet,
     optimism,
@@ -24,9 +44,13 @@ export const config = getDefaultConfig({
   ],
 
   transports: {
-    [mainnet.id]: http('https://eth-mainnet.g.alchemy.com/v2/EP6A_NXNsgvvMTKyz2DWegRdJTliwLT_'),
+    [mainnet.id]: http(
+      'https://eth-mainnet.g.alchemy.com/v2/EP6A_NXNsgvvMTKyz2DWegRdJTliwLT_',
+    ),
     [optimism.id]: http('https://optimism-rpc.publicnode.com'),
-    [arbitrum.id]: http('https://endpoints.omniatech.io/v1/arbitrum/one/public'),
+    [arbitrum.id]: http(
+      'https://endpoints.omniatech.io/v1/arbitrum/one/public',
+    ),
     [base.id]: http('https://endpoints.omniatech.io/v1/base/mainnet/public'),
     // [sepolia.id]: http('https://ethereum-sepolia-rpc.publicnode.com'),
     // [optimismSepolia.id]: http('https://optimism-sepolia.blockpi.network/v1/rpc/public'),
