@@ -3,6 +3,7 @@ import { Link, NavLink } from '@remix-run/react'
 
 import Logo from '~/assets/logo.png'
 import MenuIcon from '~/assets/menu.svg'
+import AuditIcon from '~/assets/audit.svg'
 import LogoMobile from '~/assets/logo-mobile.png'
 
 import primeTokenSrc from '~/assets/prime-eth-token-full.svg'
@@ -60,6 +61,18 @@ const DesktopMenu = () => {
                 <span className='mt-2 ml-0 md:mt-0 md:ml-2.5 text-white'>Defi</span>
               </div>
             </NavLink>
+            <a
+              href="https://docs.zerog.finance/security/audits"
+              target="_blank"
+              rel="noreferrer"
+              className={`flex items-center gap-2`}
+            >
+              <div className='flex flex-col md:flex-row items-center rounded-xl px-2.5 py-3 outline-none md:w-full text-md font-medium md:type-sm-caption ml-2'>
+                <img src={AuditIcon} height={20} width={20} className='w-5 h-5' />
+                <span className='mt-2 ml-0 md:mt-0 md:ml-2.5 text-white'>Audits</span>
+                <ArrowUpRight size={11} />
+              </div>
+            </a>
             <a
               href="https://docs.zerog.finance"
               target="_blank"

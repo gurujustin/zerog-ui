@@ -18,6 +18,7 @@ import { StatBox, StatBoxItem } from '~/components/StatBox'
 import { Tooltip } from '~/components/Tooltip'
 import { useAPY } from '~/utils/useAPY'
 import Logo from '~/assets/logo.png'
+import AuditIcon from '~/assets/audit.svg'
 import { redirect } from '@remix-run/cloudflare'
 
 export const meta: MetaFunction = () => {
@@ -159,7 +160,7 @@ export default function Index() {
               className="flex flex-col md:flex-row md:justify-end type-base-semibold text-gray-200 relative md:-top-8 mt-8 md:mt-0">
               <a className="mr-10" href="https://github.com/zero-g-fi" target='_blank'>Github</a>
               <a href="https://docs.zerog.finance/" target="_blank" rel="noreferrer" className="mr-10">Docs</a>
-              <a href="#" target="_blank" rel="noreferrer">Audit</a>
+              <a href="https://docs.zerog.finance/security/audits" target="_blank" rel="noreferrer">Audit</a>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row justify-between sm:items-center my-5 sm:mt-10 text-frenchGray text-sm">
@@ -180,6 +181,13 @@ export default function Index() {
                 <span
                   className="mt-2 ml-0 md:mt-0 md:ml-2.5 text-white">Defi</span>
               </div>
+            </Link>
+            <Link to="https://docs.zerog.finance/" target="_blank" rel="noreferrer">
+              <div
+                className="flex flex-col md:flex-row items-center rounded-xl px-2.5 py-3 outline-none md:w-full text-xs font-medium md:type-sm-caption w-[74px]">
+                <img src={AuditIcon} className='w-h h-5' />
+                <span
+                  className="mt-2 ml-0 md:mt-0 md:ml-2.5 text-white">Audits</span></div>
             </Link>
             <Link to="https://docs.zerog.finance/" target="_blank" rel="noreferrer">
               <div

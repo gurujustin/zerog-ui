@@ -33,8 +33,9 @@ export default function Index() {
       },
       {
         abi: zgETHABI,
-        address: contracts.xzgETH,
-        functionName: 'totalSupply',
+        address: contracts.zgETH[1],
+        functionName: 'balanceOf',
+        args: [contracts.lockbox],
         chainId: hubChainId
       },
       {
