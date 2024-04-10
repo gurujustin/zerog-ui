@@ -93,7 +93,7 @@ export default function Index() {
   //   val ? formatPoints(BigInt(val)) : pointSummary.isLoading ? '...' : '-'
 
   return (
-    <div className='flex flex-col justify-between min-h-screen'>
+    <div className="flex flex-col justify-between min-h-screen">
       <TopNav />
       <div className="mb-auto mt-20 md:mt-24 flex-1">
         <Outlet />
@@ -152,15 +152,54 @@ export default function Index() {
           </div>
           <div className="flex flex-row justify-between">
             <div className="flex flex-col md:flex-row mt-8 type-base-medium">
-              <a href="https://twitter.com/zerogfinance" target="_blank" rel="noreferrer" className="mr-10">Twitter</a>
-              <a href="https://discord.gg/zerogfinance" target="_blank" rel="noreferrer" className="mr-10">Discord</a>
-              <a href="https://mirror.xyz/zerogfi.eth" target="_blank" rel="noreferrer" className="mr-10">Mirror</a>
+              <a
+                href="https://twitter.com/zerogfinance"
+                target="_blank"
+                rel="noreferrer"
+                className="mr-10"
+              >
+                Twitter
+              </a>
+              <a
+                href="https://discord.gg/zerogfinance"
+                target="_blank"
+                rel="noreferrer"
+                className="mr-10"
+              >
+                Discord
+              </a>
+              <a
+                href="https://mirror.xyz/zerogfi.eth"
+                target="_blank"
+                rel="noreferrer"
+                className="mr-10"
+              >
+                Mirror
+              </a>
             </div>
-            <div
-              className="flex flex-col md:flex-row md:justify-end type-base-semibold text-gray-200 relative md:-top-8 mt-8 md:mt-0">
-              <a className="mr-10" href="https://github.com/zero-g-fi" target='_blank'>Github</a>
-              <a href="https://docs.zerog.finance/" target="_blank" rel="noreferrer" className="mr-10">Docs</a>
-              <a href="https://docs.zerog.finance/security/audits" target="_blank" rel="noreferrer">Audit</a>
+            <div className="flex flex-col md:flex-row md:justify-end type-base-semibold text-gray-200 relative md:-top-8 mt-8 md:mt-0">
+              <a
+                className="mr-10"
+                href="https://github.com/zero-g-fi"
+                target="_blank"
+              >
+                Github
+              </a>
+              <a
+                href="https://docs.zerog.finance/"
+                target="_blank"
+                rel="noreferrer"
+                className="mr-10"
+              >
+                Docs
+              </a>
+              <a
+                href="https://docs.zerog.finance/security/audits"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Audit
+              </a>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row justify-between sm:items-center my-5 sm:mt-10 text-frenchGray text-sm">
@@ -168,33 +207,55 @@ export default function Index() {
           </div>
         </div>
         <div className="fixed md:hidden bottom-0 w-full p-1">
-          <div className="flex flex-row bg-[#20232c] w-full justify-between py-1 px-4">
+          <div className="flex flex-row bg-[#20232c] w-full place-content-center py-1">
             <Link to="/restake">
               <div className="flex flex-col md:flex-row items-center rounded-xl px-2.5 py-3 outline-none md:w-full text-xs font-medium md:type-sm-caption w-[74px]">
-                <img src='https://assets-global.website-files.com/63c8d82f64b86c5899397e13/659d3701b7c4049ee7d1ecfd_crypto-01.svg' className='w-h h-5' />
-                <span
-                  className="mt-2 ml-0 md:mt-0 md:ml-2.5 text-white">Restake</span></div>
+                <img
+                  src="https://assets-global.website-files.com/63c8d82f64b86c5899397e13/659d3701b7c4049ee7d1ecfd_crypto-01.svg"
+                  className="w-h h-5"
+                />
+                <span className="mt-2 ml-0 md:mt-0 md:ml-2.5 text-white">
+                  Restake
+                </span>
+              </div>
             </Link>
             <Link to="/defi">
               <div className="flex flex-col md:flex-row items-center rounded-xl px-2.5 py-3 outline-none md:w-full text-xs font-medium md:type-sm-caption w-[74px]">
-                <img src='https://assets-global.website-files.com/63c8d82f64b86c5899397e13/659d3701b243f88e65f5b99b_coin-stacked-05.svg' className='w-h h-5' />
-                <span
-                  className="mt-2 ml-0 md:mt-0 md:ml-2.5 text-white">Defi</span>
+                <img
+                  src="https://assets-global.website-files.com/63c8d82f64b86c5899397e13/659d3701b243f88e65f5b99b_coin-stacked-05.svg"
+                  className="w-h h-5"
+                />
+                <span className="mt-2 ml-0 md:mt-0 md:ml-2.5 text-white">
+                  DeFi
+                </span>
               </div>
             </Link>
-            <Link to="https://docs.zerog.finance/" target="_blank" rel="noreferrer">
-              <div
-                className="flex flex-col md:flex-row items-center rounded-xl px-2.5 py-3 outline-none md:w-full text-xs font-medium md:type-sm-caption w-[74px]">
-                <img src={AuditIcon} className='w-h h-5' />
-                <span
-                  className="mt-2 ml-0 md:mt-0 md:ml-2.5 text-white">Audits</span></div>
+            <Link
+              to="https://docs.zerog.finance/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="flex flex-col md:flex-row items-center rounded-xl px-2.5 py-3 outline-none md:w-full text-xs font-medium md:type-sm-caption w-[74px]">
+                <img src={AuditIcon} className="w-h h-5" />
+                <span className="mt-2 ml-0 md:mt-0 md:ml-2.5 text-white">
+                  Audits
+                </span>
+              </div>
             </Link>
-            <Link to="https://docs.zerog.finance/" target="_blank" rel="noreferrer">
-              <div
-                className="flex flex-col md:flex-row items-center rounded-xl px-2.5 py-3 outline-none md:w-full text-xs font-medium md:type-sm-caption w-[74px]">
-                <img src='https://assets-global.website-files.com/63c8d82f64b86c5899397e13/659bf1256102d36e4215f0fa_Docs.svg' className='w-h h-5' />
-                <span
-                  className="mt-2 ml-0 md:mt-0 md:ml-2.5 text-white">Docs</span></div>
+            <Link
+              to="https://docs.zerog.finance/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="flex flex-col md:flex-row items-center rounded-xl px-2.5 py-3 outline-none md:w-full text-xs font-medium md:type-sm-caption w-[74px]">
+                <img
+                  src="https://assets-global.website-files.com/63c8d82f64b86c5899397e13/659bf1256102d36e4215f0fa_Docs.svg"
+                  className="w-h h-5"
+                />
+                <span className="mt-2 ml-0 md:mt-0 md:ml-2.5 text-white">
+                  Docs
+                </span>
+              </div>
             </Link>
           </div>
         </div>

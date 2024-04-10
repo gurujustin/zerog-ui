@@ -11,7 +11,7 @@
       <stop offset="1" style="stop-color: rgb(253, 38, 177);"/>
     </linearGradient>
   </defs>
-  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+  <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd">
     <g id="circle-green" transform="translate(0.000000, 0.587600)" fill-rule="nonzero">
       <circle id="Oval" opacity="0.2" cx="44.5153" cy="44.5153" r="44.5153" style="fill: url('#gradient-2-0');"/>
       <circle id="Oval" cx="45.0788" cy="43.9518" r="31.5551" style="fill-rule: nonzero; fill: url('#gradient-1');"/>
