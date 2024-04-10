@@ -39,7 +39,7 @@ const row = (protocol: Protocol) => {
             <div className='col-span-2'>
                 <div className='flex items-center gap-2 font-bold'>
                 <img src={protocol.logo} className='h-10 w-10' />
-                <a href={protocol.link} className="inline-flex items-center gap-x-1" target="_blank">
+                <a href={protocol.link} className="inline-flex items-center gap-x-1 disabled" target="_blank">
                     {protocol.name}
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="size-4">
                     <path d="M15 3h6v6"></path>

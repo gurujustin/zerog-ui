@@ -6,7 +6,7 @@ body {
   @apply antialiased;
   background-color: rgb(17 20 28);
   background-repeat: no-repeat;
-  font-family: "Urbanist", sans-serif;
+  font-family: 'Urbanist', sans-serif;
 }
 
 .bg-home-hero-bg {
@@ -27,7 +27,7 @@ body {
 
 @media (min-width: 900px) {
   .vaults-page-grid {
-      grid-template-columns: auto auto auto min-content 350px;
+    grid-template-columns: auto auto auto min-content 350px;
   }
 }
 
@@ -65,4 +65,9 @@ body {
 
 [data-rk] .ju367v1a {
   margin: 6px;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
 }

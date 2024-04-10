@@ -150,43 +150,43 @@ export const assets = [
 
 export const protocols = [
   {
-    name: 'Pendle',
-    link: 'https://app.pendle.finance/lrt/zgeth',
+    name: 'Pendle (Coming Soon)',
+    link: '#',
     logo: pendle,
     chain: 'Ethereum',
     chainlogo: ethereumSrc,
     assets: 'zgETH',
-    tvl: '$332,543,521',
+    tvl: '$ -.-',
     boost: '2x'
   },
   {
-    name: 'Zircuit',
-    link: 'https://stake.zircuit.com/?ref=zerog',
+    name: 'Zircuit (Coming Soon)',
+    link: '#',
     logo: zircuit,
     chain: 'Ethereum',
     chainlogo: ethereumSrc,
     assets: 'zgETH',
-    tvl: '$203,543',
+    tvl: '$ -.-',
     boost: '1x'
   },
   {
-    name: 'Curve',
-    link: 'https://curve.fi/#/ethereum/pools/factory-stable-ng-79/deposit',
+    name: 'Curve (Coming Soon)',
+    link: '#',
     logo: curve,
     chain: 'Ethereum',
     chainlogo: ethereumSrc,
-    assets: 'zgETH/WETH',
-    tvl: '$3,359,466',
+    assets: 'zgETH / WETH',
+    tvl: '$ -.-',
     boost: '1x'
   },
   {
-    name: 'Camelot',
-    link: 'https://curve.fi/#/ethereum/pools/factory-stable-ng-79/deposit',
+    name: 'Camelot (Coming Soon)',
+    link: '#',
     logo: camelot,
     chain: 'Arbitrum',
     chainlogo: arbitrumSrc,
-    assets: 'zgETH/WETH',
-    tvl: '$690,307',
+    assets: 'zgETH / WETH',
+    tvl: '$ -.-',
     boost: '2x'
   }
 ] as Protocol[]

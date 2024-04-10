@@ -331,9 +331,9 @@ export default function Index() {
           <div className="flex flex-row justify-between items-baseline">
             <label className="text-md font-medium text-gray-400">Asset</label>
             <div className="flex flex-row text-sm font-medium text-gray-400 items-center">
-              <span>Available:</span>
-              <span className="ml-2 text-xs">
-                <div>{`${formatEth(assetBalance)}${asset}`}</div>
+              <span>Available:&nbsp;</span>
+              <span className="text-xs">
+                <div>{`${formatEth(assetBalance)} ${asset}`}</div>
               </span>
             </div>
           </div>
@@ -440,7 +440,7 @@ export default function Index() {
           <div className="text-gray-400 text-sm">You will receive:</div>
           <div className="text-gray-400 font-semibold text-sm">
             {formatEth(youWillGet || '0')}
-            zgETH
+            &nbsp;zgETH
           </div>
         </div>
         <div className="flex justify-between items-center">

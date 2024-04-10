@@ -153,7 +153,7 @@ export default function Index() {
           <div className="flex flex-row justify-between">
             <div className="flex flex-col md:flex-row mt-8 type-base-medium">
               <a href="https://twitter.com/zerogfinance" target="_blank" rel="noreferrer" className="mr-10">Twitter</a>
-              <a href="https://discord.gg/RCGMhkzEZx" target="_blank" rel="noreferrer" className="mr-10">Discord</a>
+              <a href="https://discord.gg/zerogfinance" target="_blank" rel="noreferrer" className="mr-10">Discord</a>
               <a href="https://mirror.xyz/zerogfi.eth" target="_blank" rel="noreferrer" className="mr-10">Mirror</a>
             </div>
             <div
@@ -164,7 +164,7 @@ export default function Index() {
             </div>
           </div>
           <div className="flex flex-col sm:flex-row justify-between sm:items-center my-5 sm:mt-10 text-frenchGray text-sm">
-            <div className="">Copyright © 2024 Zerog Finance</div>
+            <div className="">Copyright © 2024 Zero-G Finance</div>
           </div>
         </div>
         <div className="fixed md:hidden bottom-0 w-full p-1">
