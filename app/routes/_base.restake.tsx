@@ -4,7 +4,12 @@ import React from 'react'
 import { useReadContracts } from 'wagmi'
 import { CopyReferrerLink } from '~/components/CopyReferrerLink'
 import type { MetaFunction } from '@remix-run/cloudflare'
-import { contracts, assets, lrtOraclePriceMethod, hubChainId } from '~/utils/constants'
+import {
+  contracts,
+  assets,
+  lrtOraclePriceMethod,
+  hubChainId,
+} from '~/utils/constants'
 import { networks } from '~/utils/networks'
 import { zgETHABI, oracleAbi } from '~/utils/abis'
 import { useAPY } from '~/utils/useAPY'
@@ -29,30 +34,29 @@ export default function Index() {
         ]),
         address: contracts.lrtOracle,
         functionName: lrtOraclePriceMethod,
-        chainId: hubChainId
+        chainId: hubChainId,
       },
       {
         abi: zgETHABI,
         address: contracts.zgETH[1],
         functionName: 'balanceOf',
         args: [contracts.lockbox],
-        chainId: hubChainId
+        chainId: hubChainId,
       },
       {
         abi: oracleAbi,
         address: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
         functionName: 'latestAnswer',
-        chainId: 1
+        chainId: 1,
       },
       ...networks.map(({ chain_id }) => ({
         abi: zgETHABI,
         address: contracts.zgETH[chain_id],
         functionName: 'totalSupply',
-        chainId: chain_id
+        chainId: chain_id,
       })),
     ],
   })
-
 
   const apy = useAPY()
 
@@ -81,151 +85,138 @@ export default function Index() {
 
   return (
     <>
-      <div className='flex flex-col'>
-        <div className='bg-main'>
-          <div className='mx-auto container px-5 py-4 md:px-8 md:py-6'>
-            <div className='flex flex-col space-y-1'>
-              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold xl:leading-[68px] bg-clip-text text-transparent bg-[linear-gradient(120deg,_#ffffff_-0.35%,_#37e29a_50%)]">Liquid Restaking</h1>
-              <p className="text-sm font-normal text-gray-500 dark:text-gray-400 m-0 text-left">Stake now to earn EigenLayer Points and 3x Zero-G Points! </p>
+      <div className="flex flex-col max-w-screen-xl mx-auto px-4 sm:px-8">
+        {/* Header */}
+        <div className="flex flex-col">
+          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-[linear-gradient(120deg,_#ffffff_-0.35%,_#37e29a_50%)]">
+            Restaking
+          </h1>
+          <p className="text-md font-normal text-gray-500 mt-2">
+            Stake now to earn EigenLayer Points and Zero-G Points!{' '}
+          </p>
+        </div>
+
+        {/* Overview */}
+        <div className="flex flex-col md:flex-row w-full md:space-x-4 space-y-4 md:space-y-0 mt-8">
+          <div className="flex flex-col items-center w-full rounded-2xl shadow-sm p-4 md:p-8 text-gray-400 bg-gray-500 bg-opacity-10">
+            <div className="text-4xl">{`$${formatUSD(tvlUsd, 0)}`}</div>
+            <div className="text-md mt-4">Total Value Locked</div>
+          </div>
+          <div className="flex flex-col w-full items-center rounded-2xl shadow-sm p-4 md:p-8 text-gray-400 bg-gray-500 bg-opacity-10">
+            <div className="text-4xl">TBD</div>
+            <div className="text-md mt-4">EigenLayer Points</div>
+          </div>
+          <div className="flex flex-col w-full items-center rounded-2xl shadow-sm p-4 md:p-8 text-gray-400 bg-gray-500 bg-opacity-10">
+            <div className="text-4xl">
+              {formatDashboardPoints(
+                lrtPointRecipientStats
+                  ? BigInt(lrtPointRecipientStats.points)
+                  : undefined,
+              )}
+            </div>
+            <div className="text-md mt-4">Zero-G Points</div>
+          </div>
+        </div>
+
+        {/* Main */}
+        <div className="flex flex-col-reverse md:flex-row md:space-x-8 space-y-8 md:space-y-0 gap-x-8 gap-y-8 mt-8">
+          {/* Description */}
+          <div className="flex flex-col w-full">
+            <h2 className="text-3xl text-white font-semibold">Overview</h2>
+            <div className="text-lg mt-1 text-white">
+              Users can restake from any L2 without the need to leave the
+              ecosystem and bridge back to mainnet. Zero-G offers new
+              opportunities to users with advantages such as One-Click
+              Restaking, Ultra-Low Fee, and Liquidity Retention.
+            </div>
+            <h2 className="text-2xl text-white font-semibold mt-12">
+              How it works
+            </h2>
+            <div className="w-fit h-fit rounded-2xl mt-4 p-2 bg-gray-500 bg-opacity-10">
+              <img src={diagram} />
+            </div>
+            <h3 className="text-xl font-semibold text-[#83FFD9] mt-12">
+              Stake
+            </h3>
+            <ol className="list-decimal text-base text-white font-medium pl-4 mt-2">
+              <li>Select an asset to stake and deposit.</li>
+              <li>Stake without bridging assets from L2s.</li>
+              <li>Receive zgETH in your wallet.</li>
+            </ol>
+            <h3 className="text-xl font-semibold text-[#83FFD9] mt-8">
+              Unstake & Withdraw
+            </h3>
+            <div className="text-base text-white font-medium mt-2">
+              Coming Soon
+            </div>
+            <h3 className="text-xl font-semibold text-[#83FFD9] mt-8">
+              Fee Structure
+            </h3>
+            <div className="text-base text-white font-medium mt-2">
+              The fee structure consists of a 0% stake fee and a 10% reward fee.
             </div>
           </div>
-          <div className='mx-auto container flex flex-col md:flex-col items-center px-5 py-4 md:px-8 md:py-6 '>
-            <div className="flex flex-row w-full justify-between text-sm gap md:gap-8">
-              <div
-                className="w-4/12 flex flex-col justify-between px-2 py-4 md:p-6 text-gray-400 bg-gray-500 bg-opacity-10 shadow-sm md:rounded-2xl rounded-l-2xl">
-                <div className="text-center space-y-2">
-                  <div className='flex flex-col'>
-                    <div className="text-xl lg:text-3xl font-semibold text-white">{`$${formatUSD(tvlUsd, 0)}`}</div>
+
+          {/* Panel */}
+          <div className="flex flex-col w-full md:max-w-[440px] gap-0.5">
+            <div className="flex justify-between items-center rounded-t-2xl rounded-b p-4 bg-gray-500 bg-opacity-10">
+              <div className="type-lg-semibold text-white">APY</div>
+              <div className="type-lg-semibold text-white font-medium">
+                {`${apy.toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
+                })}%`}
+              </div>
+            </div>
+            <div className="flex justify-evenly gap-0.5">
+              <Toggle
+                tabs={[
+                  { label: 'Stake', href: '/restake' },
+                  { label: 'Unstake', href: '/restake/unstake' },
+                  { label: 'Withdraw', href: '/restake/withdraw' },
+                ]}
+              />
+            </div>
+            <Outlet />
+            <div className="flex flex-col w-full rounded-t-2xl mt-2 p-4 bg-gray-500 bg-opacity-10">
+              <div className="flex justify-between">
+                <span className="type-lg-semibold text-white">
+                  Referral Program
+                </span>
+                <button onClick={() => setIsOpen(!isOpen)}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className="h-6 w-6 text-white"
+                  >
+                    {!isOpen && <line x1="12" y1="5" x2="12" y2="19"></line>}
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            {isOpen && (
+              <div className="flex flex-col text-sm text-gray-200 p-4 bg-gray-500 bg-opacity-10">
+                <div className="type-base-medium">
+                  You earn 10% of the points your friends make.
+                </div>
+                <div className="flex justify-between mt-4">
+                  <div className="type-base-medium text-white">
+                    Referral Points
                   </div>
-                  <div className="text-xs uppercase opacity-70">Total Value Locked</div>
-                </div>
-              </div>
-              <div
-                className="w-4/12 flex flex-col justify-between px-2 py-4 md:p-6 text-gray-400 bg-gray-500 bg-opacity-10 shadow-sm md:rounded-2xl ">
-                <div className="text-center space-y-2">
-                  <div className="text-xl lg:text-3xl font-semibold text-white">TBD</div>
-                  <div className="text-xs uppercase opacity-70">EigenLayer Points</div>
-                </div>
-              </div>
-              <div
-                className="w-4/12 flex flex-col justify-between px-2 py-4 md:p-6 text-gray-400 bg-gray-500 bg-opacity-10 shadow-sm md:rounded-2xl rounded-r-2xl">
-                <div className="text-center space-y-2">
-                  <div className="text-xl lg:text-3xl font-semibold text-white">
+                  <div className="type-base-semibold text-white font-mono">
                     {formatDashboardPoints(
                       lrtPointRecipientStats
-                        ? BigInt(lrtPointRecipientStats.points)
+                        ? BigInt(lrtPointRecipientStats.referralPoints)
                         : undefined,
                     )}
                   </div>
-                  <div className="text-xs uppercase opacity-70">Zero-G Points</div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div className='mx-auto flex flex-row container px-5 py-8 md:px-8 md:py-12'>
-          <div className='flex flex-col w-full lg:mt-0'>
-            <div className='flex flex-row container flex-wrap lg:flex-nowrap flex-row-reverse'>
-              <div className='flex flex-col box-content md:ml-20 w-full md:max-w-[440px]'>
-                <div className="flex flex-col gap-0.5 w-full h-fit">
-                  <div className='flex flex-row justify-between items-center rounded-t-2xl rounded-b bg-gray-500 bg-opacity-10 py-4 px-5'>
-                    <div className='flex flex-row justify-between w-full items-center'>
-                      <div className="type-lg-semibold text-white">APY</div>
-                      <div className="flex flex-row justify-between items-center">
-                        <div className="type-lg-semibold text-white font-medium">
-                          {`${apy.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
-                          })}%`}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-row gap-0.5 w-full flex justify-evenly">
-                    <Toggle
-                      tabs={[
-                        { label: 'Stake', href: '/restake' },
-                        { label: 'Unstake', href: '/restake/unstake' },
-                        { label: 'Withdraw', href: '/restake/withdraw' },
-                      ]}
-                    />
-                  </div>
-                  <Outlet />
-                </div>
-                <div className="w-full mt-3">
-                  <div className="flex flex-col w-full rounded-t-2xl bg-gray-500 bg-opacity-10 p-5">
-                    <div className="flex flex-row w-full justify-between">
-                      <span className="type-lg-semibold text-white">
-                        Referral Program
-                      </span>
-                      <button id="headlessui-disclosure-button-:r3d:" type="button" onClick={() => setIsOpen(!isOpen)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24}
-                          viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-                          strokeLinejoin="round" className="h-6 w-6 text-white">
-                          {!isOpen && <line x1="12" y1="5" x2="12" y2="19"></line>}
-                          <line x1="5" y1="12" x2="19" y2="12"></line>
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                  {isOpen && <div className="pt-0.5 text-sm text-gray-200" id="headlessui-disclosure-panel-:r3e:" data-headlessui-state="open">
-                    <div className="flex flex-col bg-gray-500 bg-opacity-10 py-4 px-5">
-                      <div className="type-base-medium">
-                        You earn 10% of the points your friends make.
-                      </div>
-                      <div className="flex flex-row justify-between mt-4">
-                        <div className="type-base-medium text-white">Referral Points</div>
-                        <div className="type-base-semibold text-white font-mono">
-                          {formatDashboardPoints(
-                            lrtPointRecipientStats
-                              ? BigInt(lrtPointRecipientStats.referralPoints)
-                              : undefined,
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>}
-                  <div className="rounded-b-2xl bg-gray-500 bg-opacity-10 p-5 pt-4 mt-0.5">
-                    <CopyReferrerLink />
-                  </div>
-                </div>
-              </div>
-              <div className='flex flex-col w-full mt-8 md:mt-0'>
-                <div className="flex flex-col">
-                  <div className="flex flex-col">
-                    <h2 className="text-3xl font-semibold text-white">Overview</h2>
-                    <div className="text-lg mt-6 text-white">
-                      Users can restake from any L2 without the need to leave the ecosystem and bridge back to mainnet. Zero-G offers new opportunities to users with advantages such as One-Click Restaking, Ultra-Low Fee, and Liquidity Retention.
-                    </div>
-                  </div>
-                </div>
-                <div className='pt-10'>
-                  <h2 className="text-2xl font-semibold text-white">How it works</h2>
-                  <div className='w-fit h-fit mt-6'>
-                    <div className='p-2 rounded-2xl bg-gray-500 bg-opacity-10'>
-                      <img src={diagram} className='' />
-                    </div>
-                  </div>
-                  <div className="flex flex-col flex-wrap">
-                    <div className="w-full mt-12 lg:mt-8">
-                      <h3 className="text-xl font-semibold text-[#83FFD9]">Stake</h3>
-                      <ol className="text-base font-medium text-white list-decimal pl-5 border-base mt-3 pr-8 leading-5">
-                        <li>Select an asset to stake and deposit.</li>
-                        <li>Stake without bridging assets from L2s.</li>
-                        <li>Receive zgETH in your wallet.</li>
-                      </ol>
-                    </div>
-                    <div className="w-full mt-12 lg:mt-8">
-                      <h3 className="text-xl font-semibold text-[#83FFD9]">Unstake & Withdraw</h3>
-                      <div className="text-base font-medium text-white">Coming Soon</div>
-                    </div>
-                    <div className="w-full mt-12 lg:mt-8">
-                      <h3 className="text-xl font-semibold text-[#83FFD9]">Fee Structure</h3>
-                      <div className="text-base font-medium text-white border-base mt-3 leading-5">The fee structure consists of a 0% stake fee
-                        and a 10% reward fee.</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            )}
+            <div className="rounded-b-2xl p-4 bg-gray-500 bg-opacity-10">
+              <CopyReferrerLink />
             </div>
           </div>
         </div>
