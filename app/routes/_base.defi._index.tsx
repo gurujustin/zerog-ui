@@ -11,6 +11,7 @@ const row = (protocol: Protocol) => {
 
   React.useEffect(() => {
     if (!ref.current) return
+
     const updateMousePosition = (ev: MouseEvent) => {
       const { x, y } = ref.current.getBoundingClientRect()
 
@@ -24,12 +25,14 @@ const row = (protocol: Protocol) => {
       refValue.removeEventListener('mousemove', updateMousePosition)
     }
   }, [])
+
   return (
     <div
-      className="text-white rounded-2xl p-6 text-gray-500 bg-gray-500 bg-opacity-10 group relative overflow-hidden grid md:grid-cols-6 grid-cols-2 gap-4 cursor-pointer transition-transform ease-in-out hover:scale-[1.01]"
+      className="grid grid-cols-2 md:grid-cols-6 rounded-2xl text-white group relative overflow-hidden gap-4 p-6 bg-gray-500 bg-opacity-10 cursor-pointer transition-transform ease-in-out hover:scale-[1.01]"
       ref={ref}
       key={protocol.name}
     >
+      {/* Name */}
       <div className="col-span-2">
         <div className="flex items-center gap-2 font-bold">
           <img src={protocol.logo} className="h-10 w-10" />
@@ -58,33 +61,37 @@ const row = (protocol: Protocol) => {
           </a>
         </div>
       </div>
-      <div className="flex md:flex-row flex-col md:items-center font-medium text-purple-gray-600">
-        <span className="text-gray-400 md:hidden text-sm">Chain</span>
+
+      {/* Chain */}
+      <div className="flex flex-col md:flex-row md:items-center text-purple-gray-600 font-medium">
+        <span className="md:hidden text-sm text-gray-400">Chain</span>
         <span className="flex items-center gap-x-1">
-          <span className="relative flex items-center justify-center overflow-hidden">
-            <img
-              alt="Ethereum icon"
-              className="size-full rounded-full w-5 h-5"
-              src={protocol.chainlogo}
-            />
-          </span>
+          <img alt="Chain Logo" className="w-5 h-5" src={protocol.chainlogo} />
           {protocol.chain}
         </span>
       </div>
-      <div className="flex md:flex-row flex-col md:items-center">
-        <span className="text-gray-400 md:hidden text-sm">Assets</span>
+
+      {/* Assets */}
+      <div className="flex flex-col md:flex-row md:items-center">
+        <span className="md:hidden text-sm text-gray-400">Assets</span>
         {protocol.assets}
       </div>
-      <div className="flex md:flex-row flex-col md:items-center bg-clip-text text-transparent bg-[linear-gradient(120deg,_#72afef_0%,_#37e29a_100%)]">
-        <span className="text-gray-400 md:hidden text-sm">TVL</span>
+
+      {/* TVL */}
+      <div className="flex flex-col md:flex-row md:items-center text-transparent bg-clip-text bg-[linear-gradient(120deg,_#72afef_0%,_#37e29a_100%)]">
+        <span className="md:hidden text-sm text-gray-400">TVL</span>
         <span className="font-bold">{protocol.tvl}</span>
       </div>
-      <div className="flex md:flex-row flex-col md:items-center">
-        <span className="text-gray-400 md:hidden text-sm">Boost</span>
+
+      {/* Boost */}
+      <div className="flex flex-col md:flex-row md:items-center">
+        <span className="md:hidden text-sm text-gray-400">Boost</span>
         {protocol.boost}
       </div>
+
+      {/* Radial Gradient Animation */}
       <div
-        className="rounded-[12px] pointer-events-none absolute -inset-px -z-10 opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
+        className="absolute pointer-events-none -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"
         style={{
           background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(48, 53, 74, 0.65), transparent 80%)`,
         }}

@@ -97,7 +97,7 @@ export default function Index() {
         </div>
 
         {/* Overview */}
-        <div className="flex flex-col md:flex-row w-full md:space-x-4 space-y-4 md:space-y-0 mt-8">
+        <div className="flex flex-col md:flex-row w-full md:space-x-4 space-y-4 md:space-y-0 mt-12">
           <div className="flex flex-col items-center w-full rounded-2xl shadow-sm p-4 md:p-8 text-gray-400 bg-gray-500 bg-opacity-10">
             <div className="text-4xl">{`$${formatUSD(tvlUsd, 0)}`}</div>
             <div className="text-md mt-4">Total Value Locked</div>
@@ -119,7 +119,7 @@ export default function Index() {
         </div>
 
         {/* Main */}
-        <div className="flex flex-col-reverse md:flex-row md:space-x-8 space-y-8 md:space-y-0 gap-x-8 gap-y-8 mt-8">
+        <div className="flex flex-col-reverse md:flex-row md:space-x-8 space-y-8 md:space-y-0 gap-x-8 gap-y-8 mt-12">
           {/* Description */}
           <div className="flex flex-col w-full">
             <h2 className="text-3xl text-white font-semibold">Overview</h2>
@@ -129,13 +129,13 @@ export default function Index() {
               opportunities to users with advantages such as One-Click
               Restaking, Ultra-Low Fee, and Liquidity Retention.
             </div>
-            <h2 className="text-2xl text-white font-semibold mt-12">
+            <h2 className="text-2xl text-white font-semibold mt-8">
               How it works
             </h2>
             <div className="w-fit h-fit rounded-2xl mt-4 p-2 bg-gray-500 bg-opacity-10">
               <img src={diagram} />
             </div>
-            <h3 className="text-xl font-semibold text-[#83FFD9] mt-12">
+            <h3 className="text-xl font-semibold text-[#83FFD9] mt-8">
               Stake
             </h3>
             <ol className="list-decimal text-base text-white font-medium pl-4 mt-2">

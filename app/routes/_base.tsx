@@ -32,12 +32,12 @@ export default function Index() {
       <TopNav />
 
       {/* Body */}
-      <div className="flex-1 mt-24 mb-24">
+      <div className="flex-1 mt-32 mb-24">
         <Outlet />
       </div>
 
       {/* Footer */}
-      <div className="flex justify-between w-full fixed lg:hidden bottom-0 px-4 bg-[#20232c]">
+      <div className="flex justify-between w-full fixed lg:hidden bottom-0 px-4 sm:px-8 bg-[#20232c]">
         <Link to="/restake">
           <div className="flex flex-col items-center text-xs font-medium px-2 py-4">
             <img
