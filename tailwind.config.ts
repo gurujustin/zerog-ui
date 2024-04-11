@@ -59,5 +59,5 @@ export default {
       'footer-gradient': `linear-gradient(76.46deg, #000000 -1.88%, #1E313F 117.7%)`,
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }

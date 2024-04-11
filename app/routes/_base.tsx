@@ -65,6 +65,73 @@ export default function Index() {
             <span className="mt-2 text-white">Portfolio</span>
           </div>
         </Link>
+        <div className="self-center h-full rounded-2xl ml-2 dropdown dropdown-top dropdown-end">
+          <div
+            tabIndex={0}
+            role="button"
+            className="h-full rounded-2xl px-[15px] py-[6px]"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              color="textSubtle"
+              width="20px"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="white"
+            >
+              <path d="M6 10C4.9 10 4 10.9 4 12C4 13.1 4.9 14 6 14C7.1 14 8 13.1 8 12C8 10.9 7.1 10 6 10ZM18 10C16.9 10 16 10.9 16 12C16 13.1 16.9 14 18 14C19.1 14 20 13.1 20 12C20 10.9 19.1 10 18 10ZM12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z"></path>
+            </svg>
+          </div>
+          <ul
+            tabIndex={0}
+            className="w-52 z-[1] menu shadow rounded-box mb-6 p-2 dropdown-content bg-[#20232c] text-white"
+          >
+            <li>
+              <a
+                href="https://docs.zerog.finance/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Docs
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://docs.zerog.finance/security/audits"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Audits
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/zerogfinance"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Twitter
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://discord.gg/zerogfinance"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Discord
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/zero-g-fi"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Github
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   )

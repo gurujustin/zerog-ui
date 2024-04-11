@@ -26,7 +26,7 @@ export default function Index() {
         {/* Main */}
         <div className="flex flex-col gap-0.5 mt-12">
           {/* Table Header */}
-          <div className="hidden md:grid grid-cols-6 gap-4 text-gray-400 mb-2">
+          <div className="hidden md:grid grid-cols-6 rounded-xl gap-4 mb-0.5 px-6 py-4 bg-gray-500 bg-opacity-10 text-gray-400">
             <span className="col-span-2">Protocol</span>
             <span>Chain</span>
             <span>Assets</span>
