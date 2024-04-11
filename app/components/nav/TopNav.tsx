@@ -6,6 +6,7 @@ import LogoMobile from '~/assets/logo-mobile.png'
 
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { Menu } from '@headlessui/react'
+import { DropdownContent } from '../DropdownContent'
 
 export const TopNav = () => {
   return (
@@ -99,51 +100,7 @@ const DesktopMenu = () => {
               tabIndex={0}
               className="dropdown-content w-52 z-[1] menu mt-2 p-2 shadow rounded-box bg-[#20232c] text-white"
             >
-              <li>
-                <a
-                  href="https://docs.zerog.finance/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Docs
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://docs.zerog.finance/security/audits"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Audits
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://twitter.com/zerogfinance"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Twitter
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://discord.gg/zerogfinance"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Discord
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/zero-g-fi"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Github
-                </a>
-              </li>
+              <DropdownContent />
             </ul>
           </div>
         </div>

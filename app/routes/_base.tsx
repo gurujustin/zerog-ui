@@ -17,6 +17,7 @@ import { StatBox, StatBoxItem } from '~/components/StatBox'
 import { Tooltip } from '~/components/Tooltip'
 import { useAPY } from '~/utils/useAPY'
 import Logo from '~/assets/logo.png'
+import { DropdownContent } from '~/components/DropdownContent'
 
 export const meta: MetaFunction = () => {
   return [
@@ -85,51 +86,7 @@ export default function Index() {
             tabIndex={0}
             className="w-52 z-[1] menu shadow rounded-box mb-6 p-2 dropdown-content bg-[#20232c] text-white"
           >
-            <li>
-              <a
-                href="https://docs.zerog.finance/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Docs
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://docs.zerog.finance/security/audits"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Audits
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://twitter.com/zerogfinance"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://discord.gg/zerogfinance"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Discord
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/zero-g-fi"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Github
-              </a>
-            </li>
+            <DropdownContent />
           </ul>
         </div>
       </div>
