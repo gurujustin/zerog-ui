@@ -17,7 +17,9 @@ export default function Index() {
           <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-[linear-gradient(120deg,_#ffffff_-0.35%,_#37e29a_50%)]">
             Portfolio
           </h1>
-          <p className="text-md font-normal text-gray-500 mt-2"></p>
+          <p className="text-md font-normal text-gray-500 mt-2">
+            Your rewards from restaking, referral and DeFi
+          </p>
         </div>
 
         {/* Overview */}

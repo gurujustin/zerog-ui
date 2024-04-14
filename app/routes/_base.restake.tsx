@@ -1,6 +1,6 @@
 import { Outlet } from '@remix-run/react'
 import { Toggle } from '~/components/Toggle'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useReadContracts } from 'wagmi'
 import { CopyReferrerLink } from '~/components/CopyReferrerLink'
 import type { MetaFunction } from '@remix-run/cloudflare'
@@ -13,10 +13,10 @@ import {
 import { networks } from '~/utils/networks'
 import { zgETHABI, oracleAbi } from '~/utils/abis'
 import { useAPY } from '~/utils/useAPY'
-import { parseAbi } from 'viem'
+import { Abi, parseAbi } from 'viem'
 import diagram from '~/assets/how-it-work.png'
-import { formatEth, formatUSD, formatPoints } from '~/utils/bigint'
-import { useUserStats } from '~/utils/useUserStats'
+import { useQuery } from '@tanstack/react-query'
+import { graphqlClient } from '~/utils/graphql'
 
 export const meta: MetaFunction = () => {
   return [
@@ -26,6 +26,18 @@ export const meta: MetaFunction = () => {
 }
 
 export default function Index() {
+  const apy = useAPY()
+
+  const [zgEthPrice, setZgEthPrice] = useState(0)
+  const [lockedValues, setLockedValues] = useState({
+    ethereum: 0,
+    optimism: 0,
+    arbitrum: 0,
+    base: 0,
+  })
+  const [totalValueLocked, setTotalValueLocked] = useState(0)
+  const [totalPoints, setTotalPoints] = useState(0)
+
   const { data } = useReadContracts({
     contracts: [
       {
@@ -37,20 +49,20 @@ export default function Index() {
         chainId: hubChainId,
       },
       {
-        abi: zgETHABI,
+        abi: zgETHABI as Abi,
         address: contracts.zgETH[1],
         functionName: 'balanceOf',
         args: [contracts.lockbox],
         chainId: hubChainId,
       },
       {
-        abi: oracleAbi,
+        abi: oracleAbi as Abi,
         address: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
         functionName: 'latestAnswer',
         chainId: 1,
       },
       ...networks.map(({ chain_id }) => ({
-        abi: zgETHABI,
+        abi: zgETHABI as Abi,
         address: contracts.zgETH[chain_id],
         functionName: 'totalSupply',
         chainId: chain_id,
@@ -58,30 +70,58 @@ export default function Index() {
     ],
   })
 
-  const apy = useAPY()
+  const { isLoading: isSubsquidLoading, data: subsquid } = useQuery({
+    queryKey: ['summaries'],
+    queryFn: graphqlClient<{
+      summaries: {
+        balance: string
+        chainId: number
+        elPoints: number
+        points: number
+      }[]
+    }>(
+      `
+        query {
+            summaries {
+                balance
+                chainId
+                elPoints
+                points
+              }
+        }
+        `,
+    ),
+  })
 
-  let rsETHPrice = 0n
-  let ethValue = 0n
-  let tvl = 0n
-  let tvlUsd = 0n
-
-  try {
-    rsETHPrice = data[0].result
-    for (let i = 0; i < networks.length; i++) {
-      ethValue += data[i + 3].result
+  useEffect(() => {
+    if (!isSubsquidLoading && subsquid) {
+      console.log(isSubsquidLoading, subsquid)
+      let value = 0
+      for (let i = 0; i < subsquid.summaries.length; i++) {
+        value += subsquid.summaries[i].points / 10 ** 18
+      }
+      setTotalPoints(value)
     }
-    tvl = (rsETHPrice * (ethValue - data[1].result)) / 10n ** 18n
-    tvlUsd = (tvl * data[2].result) / 10n ** 8n
-  } catch (e) {
-    /* Ignore */
-  }
+  }, [isSubsquidLoading, subsquid])
 
-  const [isOpen, setIsOpen] = React.useState(false)
-
-  const { lrtPointRecipientStats, isLoading } = useUserStats()
-
-  const formatDashboardPoints = (val?: bigint | string | undefined) =>
-    val ? formatPoints(val) : isLoading ? '...' : '-'
+  useEffect(() => {
+    if (data) {
+      let value = 0
+      setZgEthPrice(
+        (Number(data[0].result ?? 0) * Number(data[2].result ?? 0)) / 10 ** 26,
+      )
+      setLockedValues({
+        ethereum: Number(data[3].result ?? 0) - Number(data[1].result ?? 0),
+        optimism: Number(data[4].result ?? 0),
+        arbitrum: Number(data[5].result ?? 0),
+        base: Number(data[6].result ?? 0),
+      })
+      for (let i = 0; i < networks.length; i++) {
+        value += Number(data[i + 3].result ?? 0)
+      }
+      setTotalValueLocked((value - Number(data[1].result ?? 0)) / 10 ** 18)
+    }
+  }, [data])
 
   return (
     <>
@@ -99,7 +139,12 @@ export default function Index() {
         {/* Overview */}
         <div className="flex flex-col md:flex-row w-full md:space-x-4 space-y-4 md:space-y-0 mt-12">
           <div className="flex flex-col items-center w-full rounded-2xl shadow-sm p-4 md:p-8 text-gray-400 bg-gray-500 bg-opacity-10">
-            <div className="text-4xl">{`$${formatUSD(tvlUsd, 0)}`}</div>
+            <div className="text-4xl">
+              $
+              {Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
+                Number(totalValueLocked * zgEthPrice),
+              )}
+            </div>
             <div className="text-md mt-4">Total Value Locked</div>
           </div>
           <div className="flex flex-col w-full items-center rounded-2xl shadow-sm p-4 md:p-8 text-gray-400 bg-gray-500 bg-opacity-10">
@@ -108,10 +153,9 @@ export default function Index() {
           </div>
           <div className="flex flex-col w-full items-center rounded-2xl shadow-sm p-4 md:p-8 text-gray-400 bg-gray-500 bg-opacity-10">
             <div className="text-4xl">
-              {formatDashboardPoints(
-                lrtPointRecipientStats
-                  ? BigInt(lrtPointRecipientStats.points)
-                  : undefined,
+              {' '}
+              {Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
+                Number(totalPoints),
               )}
             </div>
             <div className="text-md mt-4">Zero-G Points</div>
@@ -135,9 +179,7 @@ export default function Index() {
             <div className="w-fit h-fit rounded-2xl mt-4 p-2 bg-gray-500 bg-opacity-10">
               <img src={diagram} />
             </div>
-            <h3 className="text-xl font-semibold text-[#83FFD9] mt-8">
-              Stake
-            </h3>
+            <h3 className="text-xl font-semibold text-[#83FFD9] mt-8">Stake</h3>
             <ol className="list-decimal text-base text-white font-medium pl-4 mt-2">
               <li>Select an asset to stake and deposit.</li>
               <li>Stake without bridging assets from L2s.</li>
@@ -162,9 +204,10 @@ export default function Index() {
             <div className="flex justify-between items-center rounded-t-2xl rounded-b p-4 bg-gray-500 bg-opacity-10">
               <div className="type-lg-semibold text-white">APY</div>
               <div className="type-lg-semibold text-white font-medium">
-                {`${apy.toLocaleString(undefined, {
+                {Intl.NumberFormat('en-US', {
                   maximumFractionDigits: 2,
-                })}%`}
+                }).format(apy)}
+                %
               </div>
             </div>
             <div className="flex justify-evenly gap-0.5">
@@ -182,39 +225,13 @@ export default function Index() {
                 <span className="type-lg-semibold text-white">
                   Referral Program
                 </span>
-                <button onClick={() => setIsOpen(!isOpen)}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="h-6 w-6 text-white"
-                  >
-                    {!isOpen && <line x1="12" y1="5" x2="12" y2="19"></line>}
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                  </svg>
-                </button>
               </div>
             </div>
-            {isOpen && (
-              <div className="flex flex-col text-sm text-gray-200 p-4 bg-gray-500 bg-opacity-10">
-                <div className="type-base-medium">
-                  You earn 10% of the points your friends make.
-                </div>
-                <div className="flex justify-between mt-4">
-                  <div className="type-base-medium text-white">
-                    Referral Points
-                  </div>
-                  <div className="type-base-semibold text-white font-mono">
-                    {formatDashboardPoints(
-                      lrtPointRecipientStats
-                        ? BigInt(lrtPointRecipientStats.referralPoints)
-                        : undefined,
-                    )}
-                  </div>
-                </div>
+            <div className="flex flex-col text-sm text-gray-200 p-4 bg-gray-500 bg-opacity-10">
+              <div className="type-base-medium">
+                You earn 10% of the points your friends make.
               </div>
-            )}
+            </div>
             <div className="rounded-b-2xl p-4 bg-gray-500 bg-opacity-10">
               <CopyReferrerLink />
             </div>
