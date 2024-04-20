@@ -5,7 +5,7 @@ import { contracts, hubChainId } from './constants'
 import { lrtOracleAbi } from './abis'
 
 export function useAPY(): number {
-  const from = new Date(Date.UTC(2024, 3, 14, 18, 0))
+  const from = new Date(Date.UTC(2024, 3, 25, 18, 0))
   const to = getPrevious735AMUTC()
   const startPrice = 1001168149686353000n
 

@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import { Tooltip } from '~/components/Tooltip'
+import { CHAINS } from '~/utils/constants'
 import { formatNumber } from '~/utils/formatNumber'
 import { graphqlClient } from '~/utils/graphql'
 
@@ -15,15 +16,8 @@ export const meta: MetaFunction = () => {
 }
 
 export default function Index() {
-  // const { address } = useAccount()
-  const address = '0xcdd8111b06d32fa89d4a111f15fe17bd38410926'
+  const { address } = useAccount()
 
-  const chains = {
-    1: 'ethereum',
-    42161: 'arbitrum',
-    8453: 'base',
-    10: 'optimism',
-  }
   const [totalPoints, setTotalPoints] = useState(0)
   const [totalElPoints, setTotalElPoints] = useState(0)
   const { isLoading: isSubsquidLoading, data: subsquid } = useQuery({
@@ -106,7 +100,7 @@ export default function Index() {
                   subsquid.accounts.map((account) => {
                     return (
                       <div>
-                        {`${chains[account.chainId]} : ${formatNumber(
+                        {`${CHAINS[account.chainId]} : ${formatNumber(
                           account.points / 10 ** 18,
                           0,
                         )} pts`}

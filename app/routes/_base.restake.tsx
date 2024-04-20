@@ -9,6 +9,7 @@ import {
   assets,
   lrtOraclePriceMethod,
   hubChainId,
+  CHAINS,
 } from '~/utils/constants'
 import { networks } from '~/utils/networks'
 import { zgETHABI, oracleAbi } from '~/utils/abis'
@@ -17,6 +18,8 @@ import { Abi, parseAbi } from 'viem'
 import diagram from '~/assets/how-it-work.png'
 import { useQuery } from '@tanstack/react-query'
 import { graphqlClient } from '~/utils/graphql'
+import { Tooltip } from '~/components/Tooltip'
+import { formatNumber } from '~/utils/formatNumber'
 
 export const meta: MetaFunction = () => {
   return [
@@ -37,6 +40,7 @@ export default function Index() {
   })
   const [totalValueLocked, setTotalValueLocked] = useState(0)
   const [totalPoints, setTotalPoints] = useState(0)
+  const [totalElPoints, setTotalElPoints] = useState(0)
 
   const { data } = useReadContracts({
     contracts: [
@@ -96,11 +100,14 @@ export default function Index() {
   useEffect(() => {
     if (!isSubsquidLoading && subsquid) {
       console.log(isSubsquidLoading, subsquid)
-      let value = 0
+      let points = 0,
+        elPoints = 0
       for (let i = 0; i < subsquid.summaries.length; i++) {
-        value += subsquid.summaries[i].points / 10 ** 18
+        points += subsquid.summaries[i].points / 10 ** 18
+        elPoints += subsquid.summaries[i].elPoints / 10 ** 18
       }
-      setTotalPoints(value)
+      setTotalPoints(points)
+      setTotalElPoints(elPoints)
     }
   }, [isSubsquidLoading, subsquid])
 
@@ -140,25 +147,52 @@ export default function Index() {
         <div className="flex flex-col md:flex-row w-full md:space-x-4 space-y-4 md:space-y-0 mt-12">
           <div className="flex flex-col items-center w-full rounded-2xl shadow-sm p-4 md:p-8 text-gray-400 bg-gray-500 bg-opacity-10">
             <div className="text-4xl">
-              $
-              {Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
-                Number(totalValueLocked * zgEthPrice),
-              )}
+              ${formatNumber(Number(totalValueLocked * zgEthPrice), 0)}
             </div>
-            <div className="text-md mt-4">Total Value Locked</div>
+            <div className="flex items-center text-md mt-4">
+              Total Value Locked &nbsp;
+              <Tooltip>
+                {Object.entries(lockedValues).map(([key, value]) => {
+                  return (
+                    <div key={key}>
+                      {`${key} : $${formatNumber(
+                        Number((value * zgEthPrice) / 10 ** 18),
+                        0,
+                      )}`}
+                    </div>
+                  )
+                })}
+              </Tooltip>
+            </div>
           </div>
           <div className="flex flex-col w-full items-center rounded-2xl shadow-sm p-4 md:p-8 text-gray-400 bg-gray-500 bg-opacity-10">
-            <div className="text-4xl">TBD</div>
-            <div className="text-md mt-4">EigenLayer Points</div>
+            <div className="text-4xl">
+              {formatNumber(Number(totalElPoints), 0)}
+            </div>
+            <div className="text-md mt-4">Total EigenLayer Points</div>
           </div>
           <div className="flex flex-col w-full items-center rounded-2xl shadow-sm p-4 md:p-8 text-gray-400 bg-gray-500 bg-opacity-10">
             <div className="text-4xl">
               {' '}
-              {Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(
-                Number(totalPoints),
-              )}
+              {formatNumber(Number(totalPoints), 0)}
             </div>
-            <div className="text-md mt-4">Zero-G Points</div>
+            <div className="flex items-center text-md mt-4">
+              Total Zero-G Points &nbsp;
+              <Tooltip>
+                {!isSubsquidLoading &&
+                  subsquid &&
+                  subsquid.summaries.map((summary) => {
+                    return (
+                      <div key={summary.chainId}>
+                        {`${CHAINS[summary.chainId]} : ${formatNumber(
+                          summary.points / 10 ** 18,
+                          0,
+                        )} pts`}
+                      </div>
+                    )
+                  })}
+              </Tooltip>
+            </div>
           </div>
         </div>
 

@@ -1,6 +1,8 @@
 import pendle from '~/assets/pendle.png'
 import zircuit from '~/assets/zircuit.svg'
 import stEthSrc from '~/assets/stETH.svg'
+import mEthSrc from '~/assets/mEth.png'
+import sfrxEthSrc from '~/assets/sfrxEth.svg'
 import curve from '~/assets/curve.webp'
 import camelot from '~/assets/camelot.svg'
 import rethSrc from '~/assets/rETH.svg'
@@ -20,8 +22,8 @@ export interface Tag {
 export interface Asset {
   symbol: string
   src: string
-  name: string,
-  chain: number,
+  name: string
+  chain: number
   chainlogo: string
   address?: string
 }
@@ -46,10 +48,10 @@ export const assets = [
   //   chain: 11155111,
   //   chainlogo: ethereumSrc,
   // },
-  // { 
-  //   symbol: 'stETH', 
-  //   src: stEthSrc, 
-  //   name: 'Lido Staked ETH', 
+  // {
+  //   symbol: 'stETH',
+  //   src: stEthSrc,
+  //   name: 'Lido Staked ETH',
   //   chain: 11155111,
   //   chainlogo: ethereumSrc,
   //   address: '0x3e3FE7dBc6B4C189E7128855dD526361c49b40Af'
@@ -85,21 +87,29 @@ export const assets = [
     chain: 1,
     chainlogo: ethereumSrc,
   },
-  { 
-    symbol: 'stETH', 
-    src: stEthSrc, 
-    name: 'Lido Staked ETH', 
+  {
+    symbol: 'stETH',
+    src: stEthSrc,
+    name: 'Lido Staked ETH',
     chain: 1,
     chainlogo: ethereumSrc,
-    address: '0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84'
+    address: '0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84',
   },
   {
-    symbol: 'rETH',
-    src: rethSrc,
-    name: 'Rocket Pool ETH',
+    symbol: 'mETH',
+    src: mEthSrc,
+    name: 'mETH',
     chain: 1,
     chainlogo: ethereumSrc,
-    address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+    address: '0xd5F7838F5C461fefF7FE49ea5ebaF7728bB0ADfa',
+  },
+  {
+    symbol: 'sfrxETH',
+    src: sfrxEthSrc,
+    name: 'Staked Frax Ether',
+    chain: 1,
+    chainlogo: ethereumSrc,
+    address: '0xac3E018457B222d93114458476f3E3416Abbe38F',
   },
   {
     symbol: 'ETH',
@@ -114,7 +124,7 @@ export const assets = [
     name: 'Wrapped Ethereum',
     chain: 10,
     chainlogo: optimismSrc,
-    address: '0x4200000000000000000000000000000000000006'
+    address: '0x4200000000000000000000000000000000000006',
   },
   {
     symbol: 'ETH',
@@ -129,7 +139,7 @@ export const assets = [
     name: 'Wrapped Ethereum',
     chain: 42161,
     chainlogo: arbitrumSrc,
-    address: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1'
+    address: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',
   },
   {
     symbol: 'ETH',
@@ -144,7 +154,7 @@ export const assets = [
     name: 'Wrapped Ethereum',
     chain: 8453,
     chainlogo: baseSrc,
-    address: '0x4200000000000000000000000000000000000006'
+    address: '0x4200000000000000000000000000000000000006',
   },
 ] as Asset[]
 
@@ -157,7 +167,7 @@ export const protocols = [
     chainlogo: ethereumSrc,
     assets: 'zgETH',
     tvl: '$ -.-',
-    boost: '2x'
+    boost: '2x',
   },
   {
     name: 'Zircuit (Coming Soon)',
@@ -167,7 +177,7 @@ export const protocols = [
     chainlogo: ethereumSrc,
     assets: 'zgETH',
     tvl: '$ -.-',
-    boost: '1x'
+    boost: '1x',
   },
   {
     name: 'Curve (Coming Soon)',
@@ -177,7 +187,7 @@ export const protocols = [
     chainlogo: ethereumSrc,
     assets: 'zgETH / WETH',
     tvl: '$ -.-',
-    boost: '1x'
+    boost: '1x',
   },
   {
     name: 'Camelot (Coming Soon)',
@@ -187,8 +197,8 @@ export const protocols = [
     chainlogo: arbitrumSrc,
     assets: 'zgETH / WETH',
     tvl: '$ -.-',
-    boost: '2x'
-  }
+    boost: '2x',
+  },
 ] as Protocol[]
 
 // Ensure there is a contract address for each asset above
@@ -201,7 +211,7 @@ export const contracts = {
     1: '0x17fdeB2fbB8089fea8a7BDb847E49ce67cF863df',
     10: '0x4B9D5F4e95f6Fe93B4607BFdB43CB6b32cE47aa0',
     42161: '0xA5E5A6724E99EaBd4CA236633AAb882B7658F287',
-    8453: '0x4B9D5F4e95f6Fe93B4607BFdB43CB6b32cE47aa0'
+    8453: '0x4B9D5F4e95f6Fe93B4607BFdB43CB6b32cE47aa0',
   },
   lockbox: '0x742B5Cb1a6a10E568a79D70EF77b542663ED3e1a',
   xzgETH: '0x0e2504dB1ffb0C3f692128f3919CbCAa11c10e8f',
@@ -214,7 +224,7 @@ export const contracts = {
     1: '0xBcE1eD62786703fc974774A43dFCfeB609AD3329',
     10: '0x052c3De4979154C687eAc3865c6A7cC784328EfE',
     42161: '0xae69f9AC9aC9302E2F97B313CaF1fB45a9bB18A6',
-    8453: '0x052c3De4979154C687eAc3865c6A7cC784328EfE'
+    8453: '0x052c3De4979154C687eAc3865c6A7cC784328EfE',
   },
   lrtConfig: '0x347b65b75Ae5aB97D86032D353aa805c1625fddE',
 } as const
@@ -226,3 +236,10 @@ export const hubChainId = 1
 export const depositsEndDate = new Date()
 depositsEndDate.setUTCFullYear(2024, 4, 9)
 depositsEndDate.setUTCHours(19, 55, 0, 0)
+
+export const CHAINS = {
+  1: 'ethereum',
+  42161: 'arbitrum',
+  8453: 'base',
+  10: 'optimism',
+}
