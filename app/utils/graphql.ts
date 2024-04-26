@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const axiosInstance = axios.create({
-  baseURL: 'https://gtest.squids.live/zero-g/v/v1/graphql',
+  baseURL: 'https://gtest.squids.live/zero-g-local/v/v1/graphql',
 })
 
 export const graphqlClient =

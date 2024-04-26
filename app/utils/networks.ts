@@ -2,6 +2,7 @@ import ethSrc from '~/assets/network/ETH.svg'
 import arbSrc from '~/assets/network/arbitrum.png'
 import opSrc from '~/assets/network/optimism.png'
 import baseSrc from '~/assets/network/base.png'
+import fraxtalSrc from '~/assets/network/fraxtal.png'
 
 export const networks = [
   // Testnets
@@ -198,5 +199,38 @@ export const networks = [
       "color": "#48a9a6",
       "unwrapper_contract": "0x01EdE4Fdf8CF7Ef9942a935305C3145f8dAa180A",
       "group": "evm"
-    }
+    },
+    {
+      "id": "fraxtal",
+      "chain_id": 252,
+      "domain_id": "6648936",
+      "name": "Fraxtal",
+      "short_name": "Frax",
+      "rpcs": [
+        "https://rpc.frax.com",
+      ],
+      "private_rpcs": [
+        "https://rpc.frax.com"
+      ],
+      "native_token": {
+        "name": "Frax Ether",
+        "symbol": "frxETH",
+        "decimals": 18
+      },
+      "explorer": {
+        "name": "Fraxscan",
+        "url": "https://fraxscan.com",
+        "icon": "~/assets/explorers/fraxscan.png",
+        "block_path": "/block/{block}",
+        "address_path": "/address/{address}",
+        "contract_path": "/token/{address}",
+        "contract_0_path": "/address/{address}",
+        "transaction_path": "/tx/{tx}"
+      },
+      "image": fraxtalSrc,
+      "color": "#636890",
+      "unwrapper_contract": "0x268682b7D9992aE7e2ca4A8bCc9D9655FB06056F",
+      "group": "evm",
+      "no_pool": true
+    },
   ]

@@ -9,7 +9,7 @@ import {
   optimismSepolia,
   baseSepolia,
 } from 'wagmi/chains'
-import { connectorsForWallets, getDefaultConfig } from '@rainbow-me/rainbowkit'
+import { Chain, connectorsForWallets, getDefaultConfig } from '@rainbow-me/rainbowkit'
 import {
   okxWallet,
   rainbowWallet,
@@ -22,6 +22,26 @@ import {
 //     [mainnet.id]: http()
 //   }
 // })
+
+const fraxtal = {
+  id: 252,
+  name: 'Fraxtal',
+  iconUrl: 'https://icons.llamao.fi/icons/chains/rsz_fraxtal?w=48&h=48',
+  iconBackground: '#fff',
+  nativeCurrency: { name: 'Frax Ether', symbol: 'frxETH', decimals: 18 },
+  rpcUrls: {
+    default: { http: ['https://rpc.frax.com'] },
+  },
+  blockExplorers: {
+    default: { name: 'Fraxscan', url: 'https://fraxscan.com' },
+  },
+  contracts: {
+    multicall3: {
+      address: '0xca11bde05977b3631167028862be2a173976ca11',
+      blockCreated: 2_358_171,
+    },
+  },
+} as const satisfies Chain;
 
 export const config = getDefaultConfig({
   appName: 'Zero-G Finance',
@@ -37,6 +57,7 @@ export const config = getDefaultConfig({
     optimism,
     arbitrum,
     base,
+    fraxtal,
     // sepolia,
     // optimismSepolia,
     // arbitrumSepolia,
@@ -50,6 +71,7 @@ export const config = getDefaultConfig({
       'https://endpoints.omniatech.io/v1/arbitrum/one/public',
     ),
     [base.id]: http('https://endpoints.omniatech.io/v1/base/mainnet/public'),
+    [fraxtal.id]: http('https://rpc.frax.com')
     // [sepolia.id]: http('https://ethereum-sepolia-rpc.publicnode.com'),
     // [optimismSepolia.id]: http('https://optimism-sepolia.blockpi.network/v1/rpc/public'),
     // [arbitrumSepolia.id]: http('https://arbitrum-sepolia.blockpi.network/v1/rpc/public'),

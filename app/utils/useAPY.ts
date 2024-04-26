@@ -21,7 +21,8 @@ export function useAPY(): number {
   }
 
   const apy = calculateAPY(from, to, startPrice, zgETHPrice)
-  return apy * 100
+  // return apy * 100
+  return 3.5;
 }
 
 const calculateAPY = (

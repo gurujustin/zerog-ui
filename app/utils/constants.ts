@@ -12,6 +12,7 @@ import ethereumSrc from '~/assets/network/ETH.svg'
 import arbitrumSrc from '~/assets/network/arbitrum.png'
 import optimismSrc from '~/assets/network/optimism.png'
 import baseSrc from '~/assets/network/base.png'
+import fraxtalSrc from '~/assets/network/fraxtal.png'
 
 export interface Tag {
   title: string
@@ -156,6 +157,13 @@ export const assets = [
     chainlogo: baseSrc,
     address: '0x4200000000000000000000000000000000000006',
   },
+  {
+    symbol: 'frxETH',
+    src: ethSrc,
+    name: 'Frax Ether',
+    chain: 252,
+    chainlogo: fraxtalSrc,
+  },
 ] as Asset[]
 
 export const protocols = [
@@ -212,6 +220,7 @@ export const contracts = {
     10: '0x4B9D5F4e95f6Fe93B4607BFdB43CB6b32cE47aa0',
     42161: '0xA5E5A6724E99EaBd4CA236633AAb882B7658F287',
     8453: '0x4B9D5F4e95f6Fe93B4607BFdB43CB6b32cE47aa0',
+    252: '0x6512B048d97D17FFdc70411983Befc4680F5E1B1',
   },
   lockbox: '0x742B5Cb1a6a10E568a79D70EF77b542663ED3e1a',
   xzgETH: '0x0e2504dB1ffb0C3f692128f3919CbCAa11c10e8f',
@@ -225,6 +234,7 @@ export const contracts = {
     10: '0x052c3De4979154C687eAc3865c6A7cC784328EfE',
     42161: '0xae69f9AC9aC9302E2F97B313CaF1fB45a9bB18A6',
     8453: '0x052c3De4979154C687eAc3865c6A7cC784328EfE',
+    252: '0x737Fa0898d3edE4f5920E041aF46F595DE617985',
   },
   lrtConfig: '0x347b65b75Ae5aB97D86032D353aa805c1625fddE',
 } as const
@@ -242,4 +252,5 @@ export const CHAINS = {
   42161: 'arbitrum',
   8453: 'base',
   10: 'optimism',
+  252: 'fraxtal',
 }

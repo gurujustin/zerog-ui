@@ -33,6 +33,7 @@ import {
   zgETHABI,
   lrtDepositPoolAbi,
   xZerogDepositAbi,
+  LZZerogDepositAbi,
 } from '~/utils/abis'
 import { Tooltip } from '~/components/Tooltip'
 
@@ -158,7 +159,7 @@ export default function Index() {
       assetPriceInEth = Number(data[2].result || 10 ** 18)
       assetAllowance = isConnected ? Number(data[3].result) : 0
       assetBalance = isConnected
-        ? asset === 'ETH'
+        ? asset === 'ETH' || asset === 'frxETH'
           ? Number(ethBalanceData.value)
           : Number(data[4].result)
         : 0
@@ -224,6 +225,14 @@ export default function Index() {
           value: amount,
         })
       }
+    } else if (asset === 'frxETH') {
+      contractWrite.writeContract({
+        abi: LZZerogDepositAbi,
+        address: contracts.lrtDepositPool[chainId],
+        functionName: 'deposit',
+        args: [getReferrerId()],
+        value: amount,
+      })
     } else if (Number(amount) <= assetAllowance) {
       if (asset === 'stETH' || asset === 'mETH' || asset === 'sfrxETH') {
         console.log(assetPriceInEth, Number(amount),  zgPriceInEth, outputAmount)
