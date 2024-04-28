@@ -175,7 +175,7 @@ export default function Index() {
   let stakeButtonText = 'Stake'
   let approveButtonText = `${asset} approved`
   // show approve button if we can stake and asset has been approved this session
-  if(selectedChain == 8453 || selectedChain == 10) {
+  if(selectedChain == 8453 || selectedChain == 10 || selectedChain == 252) {
     canStake = false
     stakeButtonText = "Coming soon"
   } else if (!isConnected) {
@@ -234,7 +234,7 @@ export default function Index() {
         value: amount,
       })
     } else if (Number(amount) <= assetAllowance) {
-      if (asset === 'stETH' || asset === 'mETH' || asset === 'sfrxETH') {
+      if (asset === 'stETH' || asset === 'mETH' || asset === 'sfrxETH' || asset === 'OETH') {
         console.log(assetPriceInEth, Number(amount),  zgPriceInEth, outputAmount)
         contractWrite.writeContract({
           abi: lrtDepositPoolAbi,

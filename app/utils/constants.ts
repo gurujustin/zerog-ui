@@ -3,6 +3,7 @@ import zircuit from '~/assets/zircuit.svg'
 import stEthSrc from '~/assets/stETH.svg'
 import mEthSrc from '~/assets/mEth.png'
 import sfrxEthSrc from '~/assets/sfrxEth.svg'
+import oethSrc from '~/assets/oeth.png'
 import curve from '~/assets/curve.webp'
 import camelot from '~/assets/camelot.svg'
 import rethSrc from '~/assets/rETH.svg'
@@ -111,6 +112,14 @@ export const assets = [
     chain: 1,
     chainlogo: ethereumSrc,
     address: '0xac3E018457B222d93114458476f3E3416Abbe38F',
+  },
+  {
+    symbol: 'OETH',
+    src: oethSrc,
+    name: 'Origin Ether',
+    chain: 1,
+    chainlogo: ethereumSrc,
+    address: '0x856c4Efb76C1D1AE02e20CEB03A2A6a08b0b8dC3',
   },
   {
     symbol: 'ETH',
