@@ -20,11 +20,13 @@ import { animated, useTransition } from '@react-spring/web'
 import { CircleInfo } from './Icons'
 
 export function Tooltip({
+  refElement,
   children,
   size = 14,
   placement = 'top',
   className = 'p-3 text-sm',
 }: {
+  refElement?: ReactNode
   children: ReactNode
   size?: number
   placement?: 'top' | 'bottom' | 'left' | 'right'
@@ -69,7 +71,7 @@ export function Tooltip({
   return (
     <>
       <button ref={refs.setReference} {...getReferenceProps()}>
-        <CircleInfo size={size} />
+        {refElement ? refElement : <CircleInfo size={size} />}
       </button>
       <FloatingPortal>
         {transitions(

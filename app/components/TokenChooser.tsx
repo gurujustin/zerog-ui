@@ -10,6 +10,7 @@ import { formatEth } from '~/utils/bigint'
 import { Tags } from '~/components/Tags'
 import { Close } from './Icons'
 import { networks } from '~/utils/networks'
+import { Tooltip } from './Tooltip'
 
 export function TokenChooser({
   isOpen,
@@ -153,9 +154,18 @@ export function TokenChooser({
                                   </div>
                                 </div>
                                 {asset.symbol === 'OETH' && (
-                                  <span className="absolute right-[84px] bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                                    1.5x Boost
-                                  </span>
+                                  <div className="absolute right-[84px]">
+                                    <Tooltip
+                                      refElement={
+                                        <span className="bg-green-100 text-green-800 text-base font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                                          1.5x Boost
+                                        </span>
+                                      }
+                                    >
+                                      Users will be rewarded with 1.5x Zero-G
+                                      Points when restaking this asset
+                                    </Tooltip>
+                                  </div>
                                 )}
                                 <div className="flex flex-col items-start">
                                   <div className="text-gray-500 font-medium">

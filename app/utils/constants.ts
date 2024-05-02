@@ -6,6 +6,8 @@ import sfrxEthSrc from '~/assets/sfrxEth.svg'
 import oethSrc from '~/assets/oeth.png'
 import curve from '~/assets/curve.webp'
 import camelot from '~/assets/camelot.svg'
+import aerodrome from '~/assets/aerodrome.svg'
+import velodrome from '~/assets/velodrome.svg'
 import rethSrc from '~/assets/rETH.svg'
 import ethSrc from '~/assets/ETH.svg'
 import wethSrc from '~/assets/weth.png'
@@ -212,6 +214,26 @@ export const protocols = [
     logo: camelot,
     chain: 'Arbitrum',
     chainlogo: arbitrumSrc,
+    assets: 'zgETH / WETH',
+    tvl: '$ -.-',
+    boost: '2x',
+  },
+  {
+    name: 'Aerodrome (Coming Soon)',
+    link: '#',
+    logo: aerodrome,
+    chain: 'Base',
+    chainlogo: baseSrc,
+    assets: 'zgETH / WETH',
+    tvl: '$ -.-',
+    boost: '2x',
+  },
+  {
+    name: 'Velodrome (Coming Soon)',
+    link: '#',
+    logo: velodrome,
+    chain: 'Optimism',
+    chainlogo: optimismSrc,
     assets: 'zgETH / WETH',
     tvl: '$ -.-',
     boost: '2x',
