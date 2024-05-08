@@ -2,6 +2,7 @@ import { Link, NavLink } from '@remix-run/react'
 
 import Logo from '~/assets/logo.png'
 import PortfolioIcon from '~/assets/portfolio.svg'
+import WrapIcon from '~/assets/wrap.svg'
 import LogoMobile from '~/assets/logo-mobile.png'
 
 import { ConnectButton } from '@rainbow-me/rainbowkit'
@@ -24,7 +25,7 @@ const DesktopMenu = () => {
         <div className="flex items-center text-style-sub">
           {/* Logo */}
           <Link to="/">
-            <img src={Logo} alt="logo" className="hidden lg:block w-[140px]" />
+            <img src={Logo} alt="logo" className="hidden lg:block w-[160px]" />
             <img src={LogoMobile} alt="logo" className="lg:hidden w-[50px]" />
           </Link>
 
@@ -74,12 +75,28 @@ const DesktopMenu = () => {
                 <span className="text-white ml-2">Portfolio</span>
               </div>
             </NavLink>
+            <NavLink
+              to="/wrap"
+              className={({ isActive }) =>
+                isActive ? 'text-white' : 'text-gray-200'
+              }
+            >
+              <div className="flex items-center h-full text-md font-medium ml-2 px-2">
+                <img
+                  src={WrapIcon}
+                  height={20}
+                  width={20}
+                  className="w-5 h-5"
+                />
+                <span className="text-white ml-2">Wrap</span>
+              </div>
+            </NavLink>
           </div>
         </div>
 
         {/* Right Side */}
         <div className="flex">
-          <ConnectButton />
+          <ConnectButton showBalance={false} />
           <div className="hidden lg:block h-full rounded-2xl ml-2 dropdown dropdown-end">
             <div
               tabIndex={0}

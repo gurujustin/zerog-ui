@@ -17,6 +17,7 @@ import { StatBox, StatBoxItem } from '~/components/StatBox'
 import { Tooltip } from '~/components/Tooltip'
 import { useAPY } from '~/utils/useAPY'
 import Logo from '~/assets/logo.png'
+import WrapIcon from '~/assets/wrap.svg'
 import { DropdownContent } from '~/components/DropdownContent'
 
 export const meta: MetaFunction = () => {
@@ -64,6 +65,12 @@ export default function Index() {
               className="w-h h-5"
             />
             <span className="mt-2 text-white">Portfolio</span>
+          </div>
+        </Link>
+        <Link to="/wrap">
+          <div className="flex flex-col items-center text-xs font-medium px-2 py-4">
+            <img src={WrapIcon} className="w-h h-5" />
+            <span className="mt-2 text-white">Wrap</span>
           </div>
         </Link>
         <div className="self-center h-full rounded-2xl ml-2 dropdown dropdown-top dropdown-end">
