@@ -6,6 +6,7 @@ import sfrxEthSrc from '~/assets/sfrxEth.svg'
 import oethSrc from '~/assets/oeth.png'
 import curve from '~/assets/curve.webp'
 import camelot from '~/assets/camelot.svg'
+import sushiswap from '~/assets/sushiswap.svg'
 import aerodrome from '~/assets/aerodrome.svg'
 import velodrome from '~/assets/velodrome.svg'
 import rethSrc from '~/assets/rETH.svg'
@@ -206,7 +207,7 @@ export const protocols = [
     chainlogo: ethereumSrc,
     assets: 'zgETH / WETH',
     tvl: '$ -.-',
-    boost: '1x',
+    boost: '3x',
   },
   {
     name: 'Camelot (Coming Soon)',
@@ -226,7 +227,7 @@ export const protocols = [
     chainlogo: baseSrc,
     assets: 'zgETH / WETH',
     tvl: '$ -.-',
-    boost: '2x',
+    boost: '3x',
   },
   {
     name: 'Velodrome (Coming Soon)',
@@ -236,7 +237,27 @@ export const protocols = [
     chainlogo: optimismSrc,
     assets: 'zgETH / WETH',
     tvl: '$ -.-',
-    boost: '2x',
+    boost: '3x',
+  },
+  {
+    name: 'SushiSwap (Coming Soon)',
+    link: '#',
+    logo: sushiswap,
+    chain: 'Ethereum',
+    chainlogo: ethereumSrc,
+    assets: 'zgETH / WETH',
+    tvl: '$ -.-',
+    boost: '3x',
+  },
+  {
+    name: 'SushiSwap (Coming Soon)',
+    link: '#',
+    logo: sushiswap,
+    chain: 'Arbitrum',
+    chainlogo: arbitrumSrc,
+    assets: 'zgETH / WETH',
+    tvl: '$ -.-',
+    boost: '3x',
   },
 ] as Protocol[]
 
