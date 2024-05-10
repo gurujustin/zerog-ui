@@ -12,6 +12,7 @@ import velodrome from '~/assets/velodrome.svg'
 import rethSrc from '~/assets/rETH.svg'
 import ethSrc from '~/assets/ETH.svg'
 import wethSrc from '~/assets/weth.png'
+import modeSrc from '~/assets/network/mode.jpg'
 import ethereumSrc from '~/assets/network/ETH.svg'
 import arbitrumSrc from '~/assets/network/arbitrum.png'
 import optimismSrc from '~/assets/network/optimism.png'
@@ -176,6 +177,21 @@ export const assets = [
     chain: 252,
     chainlogo: fraxtalSrc,
   },
+  {
+    symbol: 'ETH',
+    src: ethSrc,
+    name: 'Ethereum',
+    chain: 34443,
+    chainlogo: modeSrc,
+  },
+  {
+    symbol: 'WETH',
+    src: wethSrc,
+    name: 'Wrapped Ethereum',
+    chain: 34443,
+    chainlogo: modeSrc,
+    address: '0x4200000000000000000000000000000000000006',
+  },
 ] as Asset[]
 
 export const protocols = [
@@ -273,6 +289,7 @@ export const contracts = {
     42161: '0xA5E5A6724E99EaBd4CA236633AAb882B7658F287',
     8453: '0x4B9D5F4e95f6Fe93B4607BFdB43CB6b32cE47aa0',
     252: '0x6512B048d97D17FFdc70411983Befc4680F5E1B1',
+    34443: '0xdbb048feF89375caC8f04a1536269Ffc7C22Af2C',
   },
   oftZgEth: {
     252: '0xF1fDe339814BaED9D7edb793d114eAbb214E6d8F',
@@ -290,6 +307,7 @@ export const contracts = {
     42161: '0xae69f9AC9aC9302E2F97B313CaF1fB45a9bB18A6',
     8453: '0x052c3De4979154C687eAc3865c6A7cC784328EfE',
     252: '0x737Fa0898d3edE4f5920E041aF46F595DE617985',
+    34443: '0xa44A68DA86603e041008f05d2B6b8BEDC5039c78',
   },
   lrtConfig: '0x347b65b75Ae5aB97D86032D353aa805c1625fddE',
 } as const
@@ -308,4 +326,5 @@ export const CHAINS = {
   8453: 'base',
   10: 'optimism',
   252: 'fraxtal',
+  34443: 'mode',
 }

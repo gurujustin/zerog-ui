@@ -43,6 +43,26 @@ const fraxtal = {
   },
 } as const satisfies Chain;
 
+const mode = {
+  id: 34443,
+  name: 'Mode',
+  iconUrl: 'https://explorer.mode.network/assets/network_logo.jpg',
+  iconBackground: '#fff',
+  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+  rpcUrls: {
+    default: { http: ['https://mainnet.mode.network'] },
+  },
+  blockExplorers: {
+    default: { name: 'Mode Explorer', url: 'https://explorer.mode.network' },
+  },
+  contracts: {
+    multicall3: {
+      address: '0xca11bde05977b3631167028862be2a173976ca11',
+      blockCreated: 2_465_882,
+    },
+  },
+} as const satisfies Chain;
+
 export const config = getDefaultConfig({
   appName: 'Zero-G Finance',
   projectId: 'b6187205b37dc9d704772f16dca5b71e',
@@ -58,6 +78,7 @@ export const config = getDefaultConfig({
     arbitrum,
     base,
     fraxtal,
+    mode
     // sepolia,
     // optimismSepolia,
     // arbitrumSepolia,
@@ -71,7 +92,8 @@ export const config = getDefaultConfig({
       'https://endpoints.omniatech.io/v1/arbitrum/one/public',
     ),
     [base.id]: http('https://endpoints.omniatech.io/v1/base/mainnet/public'),
-    [fraxtal.id]: http('https://rpc.frax.com')
+    [fraxtal.id]: http('https://rpc.frax.com'),
+    [mode.id]: http('https://mainnet.mode.network'),
     // [sepolia.id]: http('https://ethereum-sepolia-rpc.publicnode.com'),
     // [optimismSepolia.id]: http('https://optimism-sepolia.blockpi.network/v1/rpc/public'),
     // [arbitrumSepolia.id]: http('https://arbitrum-sepolia.blockpi.network/v1/rpc/public'),

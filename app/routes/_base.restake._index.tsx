@@ -175,7 +175,7 @@ export default function Index() {
   let stakeButtonText = 'Stake'
   let approveButtonText = `${asset} approved`
   // show approve button if we can stake and asset has been approved this session
-  if(selectedChain == 8453 || selectedChain == 10 || selectedChain == 252) {
+  if(selectedChain == 8453 || selectedChain == 10 || selectedChain == 252 || selectedChain == 34443) {
     canStake = false
     stakeButtonText = "Coming soon"
   } else if (!isConnected) {
