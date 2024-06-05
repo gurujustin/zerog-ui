@@ -409,11 +409,11 @@ export default function Index() {
                     value={inputAmount}
                     onChange={(e) => setInputAmount(e.currentTarget.value)}
                     type="text"
-                    className="border focus:ring-transparent focus:outline-0 focus:shadow-none focus:outline-none focus:border-primary text-[#bdbfc7] h-12 bg-gray-800 border-gray-750 font-mono text-md font-medium text-left px-4 py-3 md:pr-5 rounded-lg md:rounded-xl"
+                    className="bg-[#001f0b] border focus:ring-transparent focus:outline-0 focus:shadow-none focus:outline-none focus:border-[#45ff76] text-white h-12 border-[#45ff76] font-mono text-md font-medium text-left px-4 py-3 md:pr-5 rounded-lg md:rounded-xl"
                   />
                 </div>
                 <button
-                  className="bg-opacity-60 bg-gray-400 hover:bg-opacity-80 text-style-sub absolute right-0 mr-2 md:mr-5 py-1.5 px-3 rounded-lg"
+                  className="border border-[#45ff76] bg-[#00260d] hover:bg-opacity-80 text-style-sub text-[#6df791] absolute right-0 mr-2 md:mr-5 py-1.5 px-3 rounded-lg"
                   type="button"
                   onClick={() => {
                     if (zgBalance) {
