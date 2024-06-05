@@ -144,7 +144,7 @@ export default function Index() {
   }, [contractWrite.status, txReceipt.data, refetch, refetchEthBalanceData])
 
   let zgPriceInEth = 0,
-    zgBalance = 0,
+    zgETHBalance = 0,
     assetPriceInEth = 0,
     assetAllowance = 0,
     assetBalance = 0,
@@ -156,7 +156,7 @@ export default function Index() {
     try {
       zgPriceInEth = Number(data[0]?.result || 10 ** 18)
       // if contract not connected balance is 0
-      zgBalance = Number(data[1].result)
+      zgETHBalance = Number(data[1].result)
       assetPriceInEth = Number(data[2].result || 10 ** 18)
       assetAllowance = isConnected ? Number(data[3].result) : 0
       assetBalance = isConnected
@@ -399,7 +399,7 @@ export default function Index() {
               <div className="flex flex-row justify-end text-sm font-medium text-white items-center">
                 <span>Available:&nbsp;</span>
                 <span className="text-xs">
-                  <div>{`${formatEth(zgBalance)} zgETH`}</div>
+                  <div>{`${formatEth(zgETHBalance)} zgETH`}</div>
                 </span>
               </div>
               <div className="flex flex-col justify-center relative">
@@ -416,8 +416,8 @@ export default function Index() {
                   className="border border-[#45ff76] bg-[#00260d] hover:bg-opacity-80 text-style-sub text-[#6df791] absolute right-0 mr-2 md:mr-5 py-1.5 px-3 rounded-lg"
                   type="button"
                   onClick={() => {
-                    if (zgBalance) {
-                      setInputAmount(formatEther(BigInt(zgBalance)))
+                    if (zgETHBalance) {
+                      setInputAmount(formatEther(BigInt(zgETHBalance)))
                     }
                   }}
                 >
@@ -429,11 +429,11 @@ export default function Index() {
               <div className="flex flex-row justify-end text-sm font-medium text-white items-center">
                 <span>Available:&nbsp;</span>
                 <span className="text-xs">
-                  <div>{`${formatEth(zgBalance)} zgETH`}</div>
+                  <div>{`${formatEth(zgETHBalance)} zgETH`}</div>
                 </span>
                 <button className='ml-2 text-[#0bff72] font-bold hover:opacity-80' onClick={() => {
-                  if (zgBalance) {
-                    setInputAmount(formatEth(BigInt(Math.floor(zgBalance * assetPriceInZg / (32 * 10**36)) * 32 * 10**36 / assetPriceInZg)))
+                  if (zgETHBalance) {
+                    setInputAmount(formatEth(BigInt(Math.floor(zgETHBalance * assetPriceInZg / (32 * 10**36)) * 32 * 10**36 / assetPriceInZg)))
                   }
                 }}>
                   Max
