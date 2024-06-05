@@ -1,5 +1,18 @@
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="0.5" y="0.5" width="47" height="47" rx="11.5" fill="white" fill-opacity="0.05"/>
-<rect x="0.5" y="0.5" width="47" height="47" rx="11.5" stroke="#37393D"/>
-<path d="M32 13.3333L36 17.3333M36 17.3333L32 21.3333M36 17.3333H17.3333C14.3878 17.3333 12 19.7211 12 22.6666M16 34.6666L12 30.6666M12 30.6666L16 26.6666M12 30.6666H30.6667C33.6122 30.6666 36 28.2788 36 25.3333" stroke="#C54EFF" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round"/>
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 195 195" width="195" height="195">
+	<title>Restake Page Nav Highlighted-svg</title>
+	<defs>
+		<clipPath clipPathUnits="userSpaceOnUse" id="cp1">
+			<path d="m-26-54h572v305h-572z"/>
+		</clipPath>
+	</defs>
+	<style>
+		.s0 { fill: #45ff76 } 
+	</style>
+	<g id="Clip-Path: Restake_Page_Nav_Highlighted" clip-path="url(#cp1)">
+		<g id="Restake_Page_Nav_Highlighted">
+			<g id="Group_433">
+				<path id="Path_534" fill-rule="evenodd" class="s0" d="m123.5 43.5l26.5 24.5v81.5h-79.5l-26.5-24.5v-81.5zm-49.5 22.4h61.8l-15.5-14.2h-61.8zm2.6 75.4h65.2v-67.3h-65.2z"/>
+			</g>
+		</g>
+	</g>
 </svg>

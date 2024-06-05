@@ -1,8 +1,10 @@
 import { Link, NavLink } from '@remix-run/react'
 
-import Logo from '~/assets/logo.png'
+import Logo from '~/assets/logo.svg'
 import PortfolioIcon from '~/assets/portfolio.svg'
 import WrapIcon from '~/assets/wrap.svg'
+import RestakeIcon from '~/assets/Restake.svg'
+import DefiIcon from '~/assets/defi.svg'
 import LogoMobile from '~/assets/logo-mobile.png'
 
 import { ConnectButton } from '@rainbow-me/rainbowkit'
@@ -34,35 +36,35 @@ const DesktopMenu = () => {
             <NavLink
               to="/restake"
               className={({ isActive }) =>
-                isActive ? 'text-white' : 'text-gray-200'
+                isActive ? 'text-shadow-green' : 'text-gray-200'
               }
             >
               <div className="flex items-center h-full text-md font-medium ml-4 px-2">
                 <img
-                  src="https://assets-global.website-files.com/63c8d82f64b86c5899397e13/659d3701b7c4049ee7d1ecfd_crypto-01.svg"
-                  className="w-5 h-5"
+                  src={RestakeIcon}
+                  className="w-10 h-10"
                 />
-                <span className="text-white ml-2">Restake</span>
+                <span className="text-[#45ff76] ml-2">Restake</span>
               </div>
             </NavLink>
             <NavLink
               to="/defi"
               className={({ isActive }) =>
-                isActive ? 'text-white' : 'text-gray-200'
+                isActive ? 'text-shadow-green' : 'text-gray-200'
               }
             >
               <div className="flex items-center h-full text-md font-medium ml-2 px-2">
                 <img
-                  src="https://assets-global.website-files.com/63c8d82f64b86c5899397e13/659d3701b243f88e65f5b99b_coin-stacked-05.svg"
-                  className="w-5 h-5"
+                  src={DefiIcon}
+                  className="w-10 h-10"
                 />
-                <span className="text-white ml-2">DeFi</span>
+                <span className="text-[#45ff76] ml-2">DeFi</span>
               </div>
             </NavLink>
             <NavLink
               to="/portfolio"
               className={({ isActive }) =>
-                isActive ? 'text-white' : 'text-gray-200'
+                isActive ? 'text-shadow-green' : 'text-gray-200'
               }
             >
               <div className="flex items-center h-full text-md font-medium ml-2 px-2">
@@ -70,15 +72,15 @@ const DesktopMenu = () => {
                   src={PortfolioIcon}
                   height={20}
                   width={20}
-                  className="w-5 h-5"
+                  className="w-10 h-10"
                 />
-                <span className="text-white ml-2">Portfolio</span>
+                <span className="text-[#45ff76] ml-2">Portfolio</span>
               </div>
             </NavLink>
             <NavLink
               to="/wrap"
               className={({ isActive }) =>
-                isActive ? 'text-white' : 'text-gray-200'
+                isActive ? 'text-shadow-green' : 'text-gray-200'
               }
             >
               <div className="flex items-center h-full text-md font-medium ml-2 px-2">
@@ -86,9 +88,9 @@ const DesktopMenu = () => {
                   src={WrapIcon}
                   height={20}
                   width={20}
-                  className="w-5 h-5"
+                  className="w-10 h-10"
                 />
-                <span className="text-white ml-2">Wrap</span>
+                <span className="text-[#45ff76] ml-2">Wrap</span>
               </div>
             </NavLink>
           </div>
@@ -101,7 +103,7 @@ const DesktopMenu = () => {
             <div
               tabIndex={0}
               role="button"
-              className="content-center h-full rounded-2xl px-[15px] py-[6px] bg-[#20232c]"
+              className="content-center h-full rounded-2xl px-[15px] py-[6px] bg-[#001f0b] border border-[#45ff76]"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -115,7 +117,7 @@ const DesktopMenu = () => {
             </div>
             <ul
               tabIndex={0}
-              className="dropdown-content w-52 z-[1] menu mt-2 p-2 shadow rounded-box bg-[#20232c] text-white"
+              className="dropdown-content w-52 z-[1] menu mt-2 p-2 shadow rounded-box bg-[#001f0b] border border-[#45ff76] text-white"
             >
               <DropdownContent />
             </ul>

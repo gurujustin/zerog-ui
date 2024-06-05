@@ -1,4 +1,5 @@
 import defaultTheme from 'tailwindcss/defaultTheme'
+const plugin = require('tailwindcss/plugin')
 
 export default {
   content: ['./app/**/*.{js,jsx,ts,tsx}'],
@@ -42,6 +43,9 @@ export default {
           },
         ],
       },
+      textShadow: {
+        'green': '#45ff76 0px 0px 15px'
+      }
     },
     container: {
         screens: {
@@ -59,5 +63,17 @@ export default {
       'footer-gradient': `linear-gradient(76.46deg, #000000 -1.88%, #1E313F 117.7%)`,
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"),
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme('textShadow') }
+      )
+    }),
+  ],
 }

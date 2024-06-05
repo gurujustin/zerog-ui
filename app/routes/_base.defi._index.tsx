@@ -28,7 +28,7 @@ const row = (protocol: Protocol) => {
 
   return (
     <div
-      className="grid grid-cols-2 md:grid-cols-6 rounded-2xl text-white group relative overflow-hidden gap-4 p-6 bg-gray-500 bg-opacity-10 cursor-pointer transition-transform ease-in-out hover:scale-[1.01]"
+      className="grid grid-cols-2 md:grid-cols-6 rounded-2xl text-white group relative overflow-hidden gap-4 p-6 bg-[#00260d] border-2 border-[#0bff72] cursor-pointer transition-transform ease-in-out hover:scale-[1.01]"
       ref={ref}
       key={protocol.name}
     >
@@ -38,7 +38,7 @@ const row = (protocol: Protocol) => {
           <img src={protocol.logo} className="h-10 w-10" />
           <a
             href={protocol.link}
-            className="inline-flex items-center gap-x-1 disabled"
+            className="inline-flex text-[#48ff7b] items-center gap-x-1 disabled"
             target="_blank"
           >
             {protocol.name}
@@ -64,28 +64,28 @@ const row = (protocol: Protocol) => {
 
       {/* Chain */}
       <div className="flex flex-col md:flex-row md:items-center text-purple-gray-600 font-medium">
-        <span className="md:hidden text-sm text-gray-400">Chain</span>
-        <span className="flex items-center gap-x-1">
+        <span className="md:hidden text-sm text-[#6a9863]">Chain</span>
+        <span className="flex items-center gap-x-1 text-[#48ff7b]">
           <img alt="Chain Logo" className="w-5 h-5" src={protocol.chainlogo} />
           {protocol.chain}
         </span>
       </div>
 
       {/* Assets */}
-      <div className="flex flex-col md:flex-row md:items-center">
-        <span className="md:hidden text-sm text-gray-400">Assets</span>
+      <div className="flex flex-col md:flex-row md:items-center text-[#48ff7b]">
+        <span className="md:hidden text-sm text-[#6a9863]">Assets</span>
         {protocol.assets}
       </div>
 
       {/* TVL */}
       <div className="flex flex-col md:flex-row md:items-center text-transparent bg-clip-text bg-[linear-gradient(120deg,_#72afef_0%,_#37e29a_100%)]">
-        <span className="md:hidden text-sm text-gray-400">TVL</span>
+        <span className="md:hidden text-sm text-[#6a9863]">TVL</span>
         <span className="font-bold">{protocol.tvl}</span>
       </div>
 
       {/* Boost */}
-      <div className="flex flex-col md:flex-row md:items-center">
-        <span className="md:hidden text-sm text-gray-400">Boost</span>
+      <div className="flex flex-col md:flex-row md:items-center text-[#48ff7b]">
+        <span className="md:hidden text-sm text-[#6a9863]">Boost</span>
         {protocol.boost}
       </div>
 
@@ -93,7 +93,7 @@ const row = (protocol: Protocol) => {
       <div
         className="absolute pointer-events-none -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"
         style={{
-          background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(48, 53, 74, 0.65), transparent 80%)`,
+          background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(70, 100, 70, 0.65), transparent 80%)`,
         }}
       ></div>
     </div>

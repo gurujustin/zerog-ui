@@ -17,11 +17,13 @@ export function TokenChooser({
   setIsOpen,
   onChange,
   selectedChain,
+  stake,
 }: {
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
   onChange: (asset: string, chain: number) => void
   selectedChain: number
+  stake: boolean
 }) {
   const [chainId, setChainId] = useState(selectedChain)
 
@@ -85,9 +87,9 @@ export function TokenChooser({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-sm transform overflow-hidden bg-[#1d2029] text-left align-middle shadow-xl transition-all rounded-2xl">
+              <Dialog.Panel className="w-full max-w-sm transform overflow-hidden bg-[#00260d] border-2 border-[#0bff72] text-left align-middle shadow-xl transition-all rounded-2xl">
                 <button
-                  className="absolute top-4 right-6 text-white hover:text-black"
+                  className="absolute top-4 right-6 text-[#3ce068] hover:text-black"
                   onClick={() => setIsOpen(false)}
                 >
                   <Close />
@@ -95,23 +97,26 @@ export function TokenChooser({
                 <div className="flex flex-col">
                   <Dialog.Title
                     as="h3"
-                    className="px-6 py-5 text-md font-medium text-white"
+                    className="px-6 py-5 text-md font-medium text-[#3ce068]"
                   >
                     Select a token
                   </Dialog.Title>
-                  <div className="flex flex-wrap gap-3 justify-center bg-gray-500 bg-opacity-10 p-2">
-                    {networks.map((network) => (
+                  <div className="flex flex-wrap gap-3 justify-center bg-[#3ce068] bg-opacity-10 p-2">
+                    {networks.filter(network => stake ? true : network.unstakeEnable !== false)
+                      .map((network) => (
                       <div className="" key={network.chain_id}>
                         <button
                           onClick={() => setChainId(network.chain_id)}
-                          className={`rounded-lg p-1.5 hover:bg-gray-600 ${
+                          className={`rounded-lg p-1.5 border  disabled:border-0 disabled:bg-[#00260d] hover:bg-[#00260d] ${
                             chainId === network.chain_id
-                              ? 'bg-gray-600'
-                              : 'bg-gray-900 bg-opacity-40'
+                              ? 'bg-[#00260d] border-[#0bff72]'
+                              : 'bg-opacity-40 border-[#17a553]'
                           }`}
+                          disabled={!network.stakeEnable}
                         >
-                          <img src={network.image} className="h-8 w-8" />
+                          <img src={network.image} className={`h-8 w-8 ${!network.stakeEnable ? 'opacity-40' : 'opactiy-100'}`} />
                         </button>
+                        {!network.stakeEnable && <p className='text-right text-xs'>• Soon</p>}
                       </div>
                     ))}
                   </div>
@@ -123,7 +128,7 @@ export function TokenChooser({
                           return (
                             <button
                               key={asset.symbol}
-                              className="flex items-center gap-3 hover:bg-gray-700 rounded-lg p-2 cursor-pointer"
+                              className="flex items-center gap-3 hover:bg-[#3ce0681a] rounded-lg p-2 cursor-pointer"
                               onClick={() => {
                                 onChange(asset.symbol, asset.chain)
                                 setIsOpen(false)
@@ -153,7 +158,7 @@ export function TokenChooser({
                                     {asset.name}
                                   </div>
                                 </div>
-                                {asset.symbol === 'OETH' && (
+                                {asset.symbol === 'OETH' && stake && (
                                   <div className="absolute right-[84px]">
                                     <Tooltip
                                       refElement={

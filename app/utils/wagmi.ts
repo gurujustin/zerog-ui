@@ -6,6 +6,9 @@ import {
   optimism,
   arbitrum,
   base,
+  linea,
+  scroll,
+  mantle,
   optimismSepolia,
   baseSepolia,
 } from 'wagmi/chains'
@@ -78,7 +81,10 @@ export const config = getDefaultConfig({
     arbitrum,
     base,
     fraxtal,
-    mode
+    mode,
+    // mantle,
+    // scroll,
+    // linea
     // sepolia,
     // optimismSepolia,
     // arbitrumSepolia,
@@ -94,6 +100,9 @@ export const config = getDefaultConfig({
     [base.id]: http('https://endpoints.omniatech.io/v1/base/mainnet/public'),
     [fraxtal.id]: http('https://rpc.frax.com'),
     [mode.id]: http('https://mainnet.mode.network'),
+    // [mantle.id]: http('https://rpc.mantle.xyz'),
+    // [scroll.id]: http('https://scroll-mainnet.chainstacklabs.com'),
+    // [linea.id]: http('https://linea.blockpi.network/v1/rpc/public'),
     // [sepolia.id]: http('https://ethereum-sepolia-rpc.publicnode.com'),
     // [optimismSepolia.id]: http('https://optimism-sepolia.blockpi.network/v1/rpc/public'),
     // [arbitrumSepolia.id]: http('https://arbitrum-sepolia.blockpi.network/v1/rpc/public'),

@@ -5,7 +5,7 @@ import { TooltipToast } from './Tooltip'
 import { hexToBase62 } from '~/utils/base62'
 
 export const CopyReferrerLink = ({
-  className = 'bg-gray-800 hover:bg-opacity-60 text-gray-200 rounded-lg text-sm font-semibold py-3 px-4',
+  className = 'bg-[#57ff85] text-white rounded-lg text-lg font-semibold py-3 px-4 btn-glow',
 }: {
   className?: string
 }) => {

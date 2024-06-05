@@ -4,6 +4,9 @@ import opSrc from '~/assets/network/optimism.png'
 import baseSrc from '~/assets/network/base.png'
 import fraxtalSrc from '~/assets/network/fraxtal.png'
 import modeSrc from '~/assets/network/mode.jpg'
+import mantleSrc from '~/assets/network/mantle.png'
+import scrollSrc from '~/assets/network/scroll.svg'
+import lineaSrc from '~/assets/network/linea.svg'
 
 export const networks = [
   // Testnets
@@ -102,6 +105,7 @@ export const networks = [
     unwrapper_contract: '0x268682b7D9992aE7e2ca4A8bCc9D9655FB06056F',
     group: 'evm',
     no_pool: true,
+    stakeEnable: true,
   },
   {
     id: 'optimism',
@@ -135,6 +139,7 @@ export const networks = [
     color: '#dc2626',
     unwrapper_contract: '0x7Fe09d217d646a6213e51b237670Bc326188cB93',
     group: 'optimistic_rollups',
+    stakeEnable: true,
   },
   {
     id: 'arbitrum',
@@ -168,6 +173,7 @@ export const networks = [
     color: '#28a0f0',
     unwrapper_contract: '0x429b9eb01362b2799131EfCC44319689b662999D',
     group: 'optimistic_rollups',
+    stakeEnable: true,
   },
   {
     id: 'base',
@@ -200,6 +206,7 @@ export const networks = [
     color: '#48a9a6',
     unwrapper_contract: '0x01EdE4Fdf8CF7Ef9942a935305C3145f8dAa180A',
     group: 'evm',
+    stakeEnable: true,
   },
   {
     id: 'fraxtal',
@@ -229,9 +236,31 @@ export const networks = [
     unwrapper_contract: '0x268682b7D9992aE7e2ca4A8bCc9D9655FB06056F',
     group: 'evm',
     no_pool: true,
+    stakeEnable: true,
+    unstakeEnable: false,
   },
   {
     chain_id: 34443,
     image: modeSrc,
+    stakeEnable: true,
+    unstakeEnable: false,
+  },
+  {
+    chain_id: 5000,
+    image: mantleSrc,
+    stakeEnable: false,
+    unstakeEnable: false,
+  },
+  {
+    chain_id: 534352,
+    image: scrollSrc,
+    stakeEnable: false,
+    unstakeEnable: false,
+  },
+  {
+    chain_id: 59144,
+    image: lineaSrc,
+    stakeEnable: false,
+    unstakeEnable: false,
   },
 ]

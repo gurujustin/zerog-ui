@@ -28,7 +28,7 @@ const row = (protocol: Protocol) => {
 
   return (
     <div
-      className="grid grid-cols-2 md:grid-cols-5 rounded-2xl text-white group relative overflow-hidden gap-4 p-6 bg-gray-500 bg-opacity-10 cursor-pointer transition-transform ease-in-out hover:scale-[1.01]"
+      className="grid grid-cols-2 md:grid-cols-5 rounded-2xl text-white group relative overflow-hidden gap-4 p-6 bg-[#00260d] border-2 border-[#0bff72] cursor-pointer transition-transform ease-in-out hover:scale-[1.01]"
       ref={ref}
       key={protocol.name}
     >
@@ -38,7 +38,7 @@ const row = (protocol: Protocol) => {
           <img src={protocol.logo} className="h-10 w-10" />
           <a
             href={protocol.link}
-            className="inline-flex items-center gap-x-1 disabled"
+            className="inline-flex text-[#48ff7b] items-center gap-x-1 disabled"
             target="_blank"
           >
             {protocol.name}
@@ -63,18 +63,18 @@ const row = (protocol: Protocol) => {
       </div>
 
       {/* Assets */}
-      <div className="flex flex-col md:flex-row md:items-center">
-        <span className="md:hidden text-sm text-gray-400">Assets</span>
+      <div className="flex flex-col md:flex-row md:items-center text-[#48ff7b]">
+        <span className="md:hidden text-sm text-[#6a9863]">Assets</span>
         {protocol.assets}
       </div>
 
-      <div className="flex flex-col md:flex-row md:items-center">
-        <span className="md:hidden text-sm text-gray-400">Zero-G Points</span>
+      <div className="flex flex-col md:flex-row md:items-center text-[#48ff7b]">
+        <span className="md:hidden text-sm text-[#6a9863]">Zero-G Points</span>
         0 Pts
       </div>
 
-      <div className="flex flex-col md:flex-row md:items-center">
-        <span className="md:hidden text-sm text-gray-400">
+      <div className="flex flex-col md:flex-row md:items-center text-[#48ff7b]">
+        <span className="md:hidden text-sm text-[#6a9863]">
           EigenLayer Points
         </span>
         0 Pts
@@ -84,7 +84,7 @@ const row = (protocol: Protocol) => {
       <div
         className="absolute pointer-events-none -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"
         style={{
-          background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(48, 53, 74, 0.65), transparent 80%)`,
+          background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(70, 100, 70, 0.65), transparent 80%)`,
         }}
       ></div>
     </div>

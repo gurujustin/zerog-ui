@@ -325,12 +325,13 @@ export default function Index() {
         }}
         setIsOpen={() => setIsTokenSelectModalOpened(false)}
         selectedChain={selectedChain}
+        stake={true}
       />
-      <div className="py-4 px-4 sm:py-6 sm:px-6 bg-gray-500 bg-opacity-10">
+      <div className="py-4 px-4 sm:py-6 sm:px-6 bg-[#00260d] border-2 border-[#0bff72]">
         <div className="flex flex-col">
           <div className="flex flex-row justify-between items-baseline">
-            <label className="text-md font-medium text-gray-400">Asset</label>
-            <div className="flex flex-row text-sm font-medium text-gray-400 items-center">
+            <label className="text-md font-medium text-white">Asset</label>
+            <div className="flex flex-row text-sm font-medium text-white items-center">
               <span>Available:&nbsp;</span>
               <span className="text-xs">
                 <div>{`${formatEth(assetBalance)} ${asset}`}</div>
@@ -341,7 +342,7 @@ export default function Index() {
             <div className="relative">
               {/* <span className='cursor-pointer' onMouseDown={() => setIsTokenSelectModalOpened(!isTokenSelectModalOpened)}> */}
               <button
-                className="bg-gray-800 border border-gray-750 hover:bg-opacity-60 px-4 py-2 rounded-xl flex items-center"
+                className="bg-[#001f0b] border border-[#45ff76] hover:bg-opacity-60 px-4 py-2 rounded-xl flex items-center"
                 type="button"
                 // onBlur={() => setIsTokenSelectModalOpened(false)}
                 onClick={() => setIsTokenSelectModalOpened(true)}
@@ -398,11 +399,11 @@ export default function Index() {
                   value={inputAmount}
                   onChange={(e) => setInputAmount(e.currentTarget.value)}
                   type="text"
-                  className="border focus:ring-transparent focus:outline-0 focus:shadow-none focus:outline-none focus:border-primary text-[#bdbfc7] h-12 bg-gray-800 border-gray-750 font-mono text-md font-medium text-left px-4 py-3 md:pr-5 rounded-lg md:rounded-xl"
+                  className="bg-[#001f0b] border focus:ring-transparent focus:outline-0 focus:shadow-none focus:outline-none focus:border-[#45ff76] text-white h-12 border-[#45ff76] font-mono text-md font-medium text-left px-4 py-3 md:pr-5 rounded-lg md:rounded-xl"
                 />
               </div>
               <button
-                className="bg-opacity-60 bg-gray-400 hover:bg-opacity-80 text-style-sub absolute right-0 mr-2 md:mr-5 py-1.5 px-3 rounded-lg"
+                className="border border-[#45ff76] bg-[#00260d] hover:bg-opacity-80 text-style-sub text-[#6df791] absolute right-0 mr-2 md:mr-5 py-1.5 px-3 rounded-lg"
                 type="button"
                 onClick={() => {
                   if (assetBalance) {
@@ -414,7 +415,7 @@ export default function Index() {
               </button>
             </div>
           </div>
-          <div className="flex justify-end items-center text-sm text-gray-400 mt-2">
+          <div className="flex justify-end items-center text-sm text-white mt-2">
             {`Your zgETH: ${formatEth(zgBalance)}`}
             <button
               className="rounded-xl border border-gray-border text-xs p-2 ml-3 hover:bg-gray-800 hover:border-gray-500 hover:text-white"
@@ -435,34 +436,32 @@ export default function Index() {
           </div>
         </div>
       </div>
-      <div className="py-4 px-4 sm:py-6 sm:px-6 bg-gray-500 bg-opacity-10 flex flex-col gap-4  rounded-b-2xl">
+      <div className="py-4 px-4 sm:py-6 sm:px-6 bg-[#00260d] border-2 border-[#0bff72] border-t-0 flex flex-col gap-4  rounded-b-2xl">
         <div className="flex justify-between items-center">
-          <div className="text-gray-400 text-sm">You will receive:</div>
-          <div className="text-gray-400 font-semibold text-sm">
+          <div className="text-white text-sm">You will receive:</div>
+          <div className="text-white font-semibold text-sm">
             {Number(formatEther(BigInt(outputAmount))).toFixed(4)}
             &nbsp;zgETH
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <div className="text-gray-400 text-sm">Exchange Rate:</div>
-          <div className="text-gray-400 font-semibold text-sm">
+          <div className="text-white text-sm">Exchange Rate:</div>
+          <div className="text-white font-semibold text-sm">
             {`${Number(formatEther(BigInt(assetPriceInZg))).toFixed(4)} ${asset} = 1 zgETH`}
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <div className="text-gray-400 text-sm flex items-center gap-2">
+          <div className="text-white text-sm flex items-center gap-2">
             Referral Bonus
             <Tooltip className="p-2 text-sm text-gray-900">
               You were referred by {getReferrerId()}
             </Tooltip>
           </div>
-          <div className="text-gray-400 font-semibold text-sm">10%</div>
+          <div className="text-white font-semibold text-sm">10%</div>
         </div>
         {!isApproved && (
           <button
-            className={`${
-              isApproved ? 'opacity-60' : 'hover:opacity-90 '
-            } bg-[#83FFD9] text-[#050707] text-md font-semibold px-3 py-4 self-center w-full mt-2 px-6 py-3 md:py-4 rounded-2xl`}
+            className={` bg-[#57ff85] text-white text-2xl font-semibold px-3 py-4 self-center w-full mt-2 px-6 md:py-4 rounded-2xl btn-glow`}
             onClick={() => {
               if (isApproved) {
                 return
@@ -486,7 +485,7 @@ export default function Index() {
         <button
           className={`${
             canStake ? 'hover:opacity-90' : 'opacity-60'
-          } bg-[#83FFD9] text-[#050707] text-md font-semibold px-3 py-4 self-center w-full mt-2 px-6 py-3 md:py-4 rounded-2xl`}
+          } bg-[#57ff85] text-white text-2xl font-semibold px-3 py-4 self-center w-full mt-2 px-6 md:py-4 rounded-2xl btn-glow`}
           onClick={() => handleStake()}
         >
           {stakeButtonText}
