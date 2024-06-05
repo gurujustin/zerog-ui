@@ -37,7 +37,7 @@ import {
 } from '~/utils/abis'
 import { Tooltip } from '~/components/Tooltip'
 
-export default function Index() {
+export default function Stake() {
   const chainId = useChainId()
   const [selectedChain, setSelectedChain] = useState(hubChainId) // mainnet 1
   const { switchChain } = useSwitchChain()

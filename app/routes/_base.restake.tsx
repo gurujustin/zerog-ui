@@ -28,6 +28,9 @@ import DefiIcon from '~/assets/defi.svg'
 import PortfolioIcon from '~/assets/portfolio.svg'
 import { DropdownContent } from '~/components/DropdownContent'
 import { Link } from '@remix-run/react'
+import Withdraw from '~/components/Withdraw'
+import Stake from '~/components/Stake'
+import Unstake from '~/components/Unstake'
 
 export const meta: MetaFunction = () => {
   return [
@@ -39,6 +42,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   const apy = useAPY()
 
+  const [activeTab, setActiveTab] = useState(0)
   const [zgEthPrice, setZgEthPrice] = useState(0)
   const [loading, setLoading] = useState(true);
   const [lockedValues, setLockedValues] = useState({
@@ -342,9 +346,13 @@ export default function Index() {
                           { label: 'Unstake', href: '/restake/unstake' },
                           { label: 'Withdraw', href: '/restake/withdraw' },
                         ]}
+                        activeTab={activeTab}
+                        onChanged={setActiveTab}
                       />
                     </div>
-                    <Outlet />
+                    {activeTab == 0 && <Stake />}
+                    {activeTab == 1 && <Unstake />}
+                    {activeTab == 2 && <Withdraw />}
                     <div className="flex flex-col w-full rounded-t-2xl mt-2 p-4 bg-[#00260d] border-2 border-[#0bff72]">
                       <div className="flex justify-between">
                         <span className="type-lg-semibold text-white">
