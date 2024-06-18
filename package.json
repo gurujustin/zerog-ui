@@ -23,6 +23,7 @@
     "@tanstack/react-query": "^5.20.5",
     "animejs": "^3.2.2",
     "isbot": "^4.4.0",
+    "moment": "^2.30.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "viem": "^2.7.8",

@@ -85,6 +85,22 @@ export const assets = [
   //   chainlogo: optimismSrc,
   //   address: '0x4200000000000000000000000000000000000006'
   // },
+  // holesky
+  {
+    symbol: 'ETH',
+    src: ethSrc,
+    name: 'Ethereum',
+    chain: 17000,
+    chainlogo: ethereumSrc,
+  },
+  {
+    symbol: 'stETH',
+    src: stEthSrc,
+    name: 'Lido Staked ETH',
+    chain: 17000,
+    chainlogo: ethereumSrc,
+    address: '0x3F1c547b21f65e10480dE3ad8E19fAAC46C95034'
+  },
   // Mainnet
   {
     symbol: 'ETH',
@@ -290,13 +306,13 @@ export const contracts = {
     8453: '0x4B9D5F4e95f6Fe93B4607BFdB43CB6b32cE47aa0',
     252: '0x6512B048d97D17FFdc70411983Befc4680F5E1B1',
     34443: '0xdbb048feF89375caC8f04a1536269Ffc7C22Af2C',
+    17000: '0x8A5b124EF51Dd62627F7b6759d15c4AA5f4D9c39',
   },
   oftZgEth: {
     252: '0xF1fDe339814BaED9D7edb793d114eAbb214E6d8F',
   },
   lockbox: '0x742B5Cb1a6a10E568a79D70EF77b542663ED3e1a',
   xzgETH: '0x0e2504dB1ffb0C3f692128f3919CbCAa11c10e8f',
-  lrtOracle: '0xAa6Fd6788fCA604AcFD3FE7e160Fbfcf4F0ef95C',
   lrtDepositPool: {
     // Testnet
     // 11155111: '0x54F461d0db815919fB50dd3044aE642d6f83bBC6',
@@ -308,13 +324,21 @@ export const contracts = {
     8453: '0x052c3De4979154C687eAc3865c6A7cC784328EfE',
     252: '0x737Fa0898d3edE4f5920E041aF46F595DE617985',
     34443: '0xa44A68DA86603e041008f05d2B6b8BEDC5039c78',
+    17000: '0x30dC9BBdd0D07276E2C405eA500F04376aE209A1',
   },
-  lrtConfig: '0x347b65b75Ae5aB97D86032D353aa805c1625fddE',
+  // lrtOracle: '0xAa6Fd6788fCA604AcFD3FE7e160Fbfcf4F0ef95C',
+  // lrtConfig: '0x347b65b75Ae5aB97D86032D353aa805c1625fddE',
+  // holesky contracts
+  lrtConfig: '0xa680F9dcF5283261F70e551ACCf59BD2C1cD62A2',
+  lrtOracle: '0xDCe54517EE1ED871de6f6E25E69f29c9903485B2',
+  withdrawalManager: '0xCD5ac07D09C86dc4B34e8A8cE5563dDd97905325',
+  unstakingVault: '0x9EB8CDA2d8c30c95E9BAEB6125A37d9d7b27CCAc',
+  nodeDelegator: '0x098AB95c7f5B8eF194460A849f77F13a1Ed0bA39',
 } as const
 
 export const lrtOraclePriceMethod = 'zgETHPrice'
 
-export const hubChainId = 1
+export const hubChainId = 17000
 
 export const depositsEndDate = new Date()
 depositsEndDate.setUTCFullYear(2024, 4, 9)
@@ -327,4 +351,5 @@ export const CHAINS = {
   10: 'optimism',
   252: 'fraxtal',
   34443: 'mode',
+  17000: 'holesky',
 }

@@ -101,25 +101,35 @@ export function TokenChooser({
                   >
                     Select a token
                   </Dialog.Title>
-                  <div className="flex flex-wrap gap-3 justify-center bg-[#3ce068] bg-opacity-10 p-2">
-                    {networks.filter(network => stake ? true : network.unstakeEnable !== false)
-                      .map((network) => (
-                      <div className="" key={network.chain_id}>
-                        <button
-                          onClick={() => setChainId(network.chain_id)}
-                          className={`rounded-lg p-1.5 border  disabled:border-0 disabled:bg-[#00260d] hover:bg-[#00260d] ${
-                            chainId === network.chain_id
-                              ? 'bg-[#00260d] border-[#0bff72]'
-                              : 'bg-opacity-40 border-[#17a553]'
-                          }`}
-                          disabled={!network.stakeEnable}
-                        >
-                          <img src={network.image} className={`h-8 w-8 ${!network.stakeEnable ? 'opacity-40' : 'opactiy-100'}`} />
-                        </button>
-                        {!network.stakeEnable && <p className='text-right text-xs'>• Soon</p>}
-                      </div>
-                    ))}
-                  </div>
+                  {stake && (
+                    <div className="flex flex-wrap gap-3 justify-center bg-[#3ce068] bg-opacity-10 p-2">
+                      {networks.map((network) => (
+                        <div className="" key={network.chain_id}>
+                          <button
+                            onClick={() => setChainId(network.chain_id)}
+                            className={`rounded-lg p-1.5 border  disabled:border-0 disabled:bg-[#00260d] hover:bg-[#00260d] ${
+                              chainId === network.chain_id
+                                ? 'bg-[#00260d] border-[#0bff72]'
+                                : 'bg-opacity-40 border-[#17a553]'
+                            }`}
+                            disabled={!network.stakeEnable}
+                          >
+                            <img
+                              src={network.image}
+                              className={`h-8 w-8 ${
+                                !network.stakeEnable
+                                  ? 'opacity-40'
+                                  : 'opactiy-100'
+                              }`}
+                            />
+                          </button>
+                          {!network.stakeEnable && (
+                            <p className="text-right text-xs">• Soon</p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                   <div className="p-6 text-sm flex flex-col gap-4 min-h-[216px]">
                     <div className="flex flex-col">
                       {assets

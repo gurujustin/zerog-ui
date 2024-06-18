@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useEffect } from 'react'
 import {
   useAccount,
@@ -23,19 +24,9 @@ import {
 import { networks } from '~/utils/networks'
 import { Modal } from '~/components/Modal'
 import { TokenChooser } from '~/components/TokenChooser'
-import { getReferrerId } from '~/utils/useReferrerTracker'
+import WarningIcon from '~/assets/warning.svg'
 
-import metamask from '~/assets/metamask.svg'
-import tokenImage from '~/assets/logo-mobile.png'
-
-import {
-  lrtOracleAbi,
-  zgETHABI,
-  lrtDepositPoolAbi,
-  xZerogDepositAbi,
-  LZZerogDepositAbi,
-} from '~/utils/abis'
-import { Tooltip } from '~/components/Tooltip'
+import { lrtOracleAbi, zgETHABI, withdrawalManagerAbi } from '~/utils/abis'
 
 export default function Index() {
   const chainId = useChainId()
@@ -75,7 +66,7 @@ export default function Index() {
         address: contracts.zgETH[selectedChain],
         functionName: 'balanceOf',
         args: [connectedAddress],
-        chainId: selectedChain
+        chainId: selectedChain,
       },
       {
         abi: lrtOracleAbi,
@@ -90,12 +81,10 @@ export default function Index() {
       },
       {
         abi: zgETHABI,
-        address: activeAsset.address
-          ? activeAsset.address
-          : '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+        address: contracts.zgETH[hubChainId],
         functionName: 'allowance',
-        args: [connectedAddress, contracts.lrtDepositPool[selectedChain]],
-        chainId: selectedChain,
+        args: [connectedAddress, contracts.withdrawalManager],
+        chainId: hubChainId,
       },
       {
         abi: zgETHABI,
@@ -105,6 +94,17 @@ export default function Index() {
         functionName: 'balanceOf',
         args: [connectedAddress],
         chainId: selectedChain,
+      },
+      {
+        abi: withdrawalManagerAbi,
+        address: contracts.withdrawalManager,
+        functionName: 'getAvailableAssetAmount',
+        args: [
+          activeAsset.address
+            ? activeAsset.address
+            : '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+        ],
+        chainId: hubChainId,
       },
     ],
   })
@@ -150,7 +150,8 @@ export default function Index() {
     assetBalance = 0,
     assetPriceInZg = 0,
     outputAmount = 0,
-    amount = parseEther(inputAmount)
+    amount = parseEther(inputAmount),
+    maxWithdrawAmount = 0
 
   if (data && ethBalanceData) {
     try {
@@ -165,99 +166,52 @@ export default function Index() {
           : Number(data[4].result)
         : 0
       assetPriceInZg = (10 ** 18 * zgPriceInEth) / assetPriceInEth
-      outputAmount = Math.trunc((zgPriceInEth * Number(amount)) / assetPriceInEth)
+      outputAmount = Math.trunc(
+        (zgPriceInEth * Number(amount)) / assetPriceInEth,
+      )
+      maxWithdrawAmount = Number(data[5].result)
     } catch (e) {
       console.log(e)
     }
   }
 
-  let canStake = true
+  let canUnstake = true
   let isApproved = true
-  let stakeButtonText = 'Stake'
+  let unstakeButtonText = 'Unstake'
   let approveButtonText = `${asset} approved`
   // show approve button if we can stake and asset has been approved this session
-  if(selectedChain == 8453 || selectedChain == 10 || selectedChain == 252 || selectedChain == 34443) {
-    canStake = false
-    stakeButtonText = "Coming soon"
-  } else if (!isConnected) {
-    stakeButtonText = 'Connect wallet'
+  if (!isConnected) {
+    unstakeButtonText = 'Connect wallet'
   } else if (Number(amount) <= 0) {
-    stakeButtonText = 'Enter an amount'
-    canStake = false
+    unstakeButtonText = 'Enter an amount'
+    canUnstake = false
   } else if (Number(amount) > assetBalance) {
-    stakeButtonText = 'Not enough balance'
-    canStake = false
-  } else if (chainId !== selectedChain) {
-    stakeButtonText = `Switch Network`
-    canStake = true
+    unstakeButtonText = 'Not enough balance'
+    canUnstake = false
+  } else if (chainId !== hubChainId) {
+    unstakeButtonText = `Switch to Ethereum`
+    canUnstake = true
   } else if (Number(amount) > assetAllowance) {
-    stakeButtonText = `Stake`
-    approveButtonText = `Approve ${asset}`
-    canStake = false
+    unstakeButtonText = `Unstake`
+    approveButtonText = `Approve`
+    canUnstake = false
     isApproved = false
   }
 
-  const handleStake = () => {
-    if (!canStake) return
+  const handleClick = () => {
+    if (!canUnstake) return
 
     if (!isConnected) {
       openConnectModal?.()
-    } else if (chainId !== selectedChain) {
-      switchChain({ chainId: selectedChain })
-    } else if (asset === 'ETH') {
-      // reset stake form
-      setInputAmount('')
-      if (chainId === hubChainId) {
-        contractWrite.writeContract({
-          abi: lrtDepositPoolAbi,
-          address: contracts.lrtDepositPool[chainId],
-          functionName: 'depositETH',
-          args: [0, getReferrerId()],
-          value: amount,
-        })
-      } else {
-        const now = new Date()
-        const deadline = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
-        contractWrite.writeContract({
-          abi: xZerogDepositAbi,
-          address: contracts.lrtDepositPool[chainId],
-          functionName: 'depositETH',
-          args: [0, Math.floor(deadline.getTime() / 1000), getReferrerId()],
-          value: amount,
-        })
-      }
-    } else if (asset === 'frxETH') {
+    } else if (chainId !== hubChainId) {
+      switchChain({ chainId: hubChainId })
+    } else if (asset !== 'ETH') {
       contractWrite.writeContract({
-        abi: LZZerogDepositAbi,
-        address: contracts.lrtDepositPool[chainId],
-        functionName: 'deposit',
-        args: [getReferrerId()],
-        value: amount,
+        abi: withdrawalManagerAbi,
+        address: contracts.withdrawalManager,
+        functionName: 'initiateWithdrawal',
+        args: [activeAsset.address, amount],
       })
-    } else if (Number(amount) <= assetAllowance) {
-      if (asset === 'stETH' || asset === 'mETH' || asset === 'sfrxETH' || asset === 'OETH') {
-        contractWrite.writeContract({
-          abi: lrtDepositPoolAbi,
-          address: contracts.lrtDepositPool[chainId],
-          functionName: 'depositAsset',
-          args: [activeAsset.address, amount, 0, getReferrerId()],
-        })
-      } else {
-        // reset stake form
-        const now = new Date()
-        const deadline = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
-        contractWrite.writeContract({
-          abi: xZerogDepositAbi,
-          address: contracts.lrtDepositPool[chainId],
-          functionName: 'deposit',
-          args: [
-            amount,
-            0,
-            Math.floor(deadline.getTime() / 1000),
-            getReferrerId(),
-          ],
-        })
-      }
     }
   }
 
@@ -268,7 +222,7 @@ export default function Index() {
   let modalButtonHref
   let modalButtonAction
   // button not disabled except if action is stake and stake is disabled
-  const modalButtonDisabled = modalButtonAction ? !canStake : false
+  const modalButtonDisabled = modalButtonAction ? !canUnstake : false
   if (contractWrite.status === 'pending') {
     modalTitle = 'Please check your wallet'
   } else if (contractWrite.status === 'success' && txReceipt.data) {
@@ -276,7 +230,7 @@ export default function Index() {
     if (contractWrite.variables?.functionName == 'approve') {
       modalButtonText = 'Stake'
       modalButtonHref = undefined
-      modalButtonAction = handleStake
+      modalButtonAction = handleClick
     }
     // else depositAssets was called
     else {
@@ -330,8 +284,10 @@ export default function Index() {
       <div className="py-4 px-4 sm:py-6 sm:px-6 bg-[#00260d] border-2 border-[#0bff72]">
         <div className="flex flex-col">
           <div className="mt-2 flex flex-col gap-4 justify-between">
-            <div className='flex flex-col'>              
-              <label className="text-md font-medium text-white">Withdraw zgETH as</label>
+            <div className="flex flex-col">
+              <label className="text-md font-medium text-white">
+                Withdraw zgETH as
+              </label>
               <div>
                 {/* <span className='cursor-pointer' onMouseDown={() => setIsTokenSelectModalOpened(!isTokenSelectModalOpened)}> */}
                 <button
@@ -340,8 +296,8 @@ export default function Index() {
                   // onBlur={() => setIsTokenSelectModalOpened(false)}
                   onClick={() => setIsTokenSelectModalOpened(true)}
                 >
-                  <div className='flex flex-row items-center gap-2'>
-                    <div className='relative'>
+                  <div className="flex flex-row items-center gap-2">
+                    <div className="relative">
                       <img
                         src={activeAsset.src}
                         alt={asset}
@@ -355,120 +311,190 @@ export default function Index() {
                         />
                       </span>
                     </div>
-                    <span className='font-bold text-white'>{activeAsset.symbol}</span>
+                    <span className="font-bold text-white">
+                      {activeAsset.symbol}
+                    </span>
                   </div>
-                  <svg fill="none" height="7" width="14" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    fill="none"
+                    height="7"
+                    width="14"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <title>Dropdown</title>
-                    <path d="M12.75 1.54001L8.51647 5.0038C7.77974 5.60658 6.72026 5.60658 5.98352 5.0038L1.75 1.54001" stroke="#fff" stroke-linecap="round" strokeLinejoin="round" strokeWidth="2.5" xmlns="http://www.w3.org/2000/svg"></path>
+                    <path
+                      d="M12.75 1.54001L8.51647 5.0038C7.77974 5.60658 6.72026 5.60658 5.98352 5.0038L1.75 1.54001"
+                      stroke="#fff"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2.5"
+                      xmlns="http://www.w3.org/2000/svg"
+                    ></path>
                   </svg>
                 </button>
-                {/* </span> */}
-                {/* {isTokenSelectModalOpened && (
-                  <ul 
-                    className="w-[180px] focus:outline-none bg-gray-800 border border-gray-750 absolute z-50 mt-1 overflow-auto rounded-[12px] shadow"
-                    aria-labelledby="headlessui-listbox-button-:r193:" aria-orientation="vertical"
-                    id="headlessui-listbox-options-:r1c0:" role="listbox" tabIndex={0} data-headlessui-state="open"
-                    aria-activedescendant="headlessui-listbox-option-:r1c1:"
-                  >
-                    {
-                      assets.map((asset, id) => {
-                        return (
-                          <li className="cursor-pointer px-5 py-2" key={id} role="option" aria-selected="false" data-headlessui-state="" onMouseDown={() => closeDropdown(asset.symbol)} onMouseOver={(e) => {e.currentTarget.className += ' bg-gray-700'}} onMouseLeave={(e) => {e.currentTarget.className = 'cursor-pointer bg-opacity-100 px-5 py-2'}}>
-                            <div className="flex items-center">
-                              <img
-                                src={asset.src}
-                                alt={asset.symbol}
-                                className="h-8"
-                              />
-                              <div className="ml-2 flex flex-col">
-                                <p className="font-bold text-white">
-                                  {asset.symbol}
-                                </p>
-                                <p className="text-xs text-white">{asset.name}</p>
-                              </div>
-                            </div>
-                          </li>
-                        )
-                      })
-                    }
-                  </ul>
-                )} */}
               </div>
             </div>
-            {!(activeAsset.symbol === 'ETH' || activeAsset.symbol === 'WETH') && <div className='flex flex-col'>
-              <div className="flex flex-row justify-end text-sm font-medium text-white items-center">
-                <span>Available:&nbsp;</span>
-                <span className="text-xs">
-                  <div>{`${formatEth(zgETHBalance)} zgETH`}</div>
-                </span>
-              </div>
-              <div className="flex flex-col justify-center relative">
-                <div className="flex flex-col justify-center ">
-                  <input
-                    placeholder="0"
-                    value={inputAmount}
-                    onChange={(e) => setInputAmount(e.currentTarget.value)}
-                    type="text"
-                    className="bg-[#001f0b] border focus:ring-transparent focus:outline-0 focus:shadow-none focus:outline-none focus:border-[#45ff76] text-white h-12 border-[#45ff76] font-mono text-md font-medium text-left px-4 py-3 md:pr-5 rounded-lg md:rounded-xl"
-                  />
+            {!(
+              activeAsset.symbol === 'ETH' || activeAsset.symbol === 'WETH'
+            ) && (
+              <div className="flex flex-col">
+                <div className="flex flex-row justify-end text-sm font-medium text-white items-center">
+                  <span>Available:&nbsp;</span>
+                  <span className="text-xs">
+                    <div>{`${formatEth(zgETHBalance)} zgETH`}</div>
+                  </span>
                 </div>
-                <button
-                  className="border border-[#45ff76] bg-[#00260d] hover:bg-opacity-80 text-style-sub text-[#6df791] absolute right-0 mr-2 md:mr-5 py-1.5 px-3 rounded-lg"
-                  type="button"
-                  onClick={() => {
-                    if (zgETHBalance) {
-                      setInputAmount(formatEther(BigInt(zgETHBalance)))
-                    }
-                  }}
-                >
-                  MAX
-                </button>
-              </div>
-            </div>}
-            {(activeAsset.symbol === 'ETH' || activeAsset.symbol === 'WETH') && <div className='flex flex-col'>
-              <div className="flex flex-row justify-end text-sm font-medium text-white items-center">
-                <span>Available:&nbsp;</span>
-                <span className="text-xs">
-                  <div>{`${formatEth(zgETHBalance)} zgETH`}</div>
-                </span>
-                <button className='ml-2 text-[#0bff72] font-bold hover:opacity-80' onClick={() => {
-                  if (zgETHBalance) {
-                    setInputAmount(formatEth(BigInt(Math.floor(zgETHBalance * assetPriceInZg / (32 * 10**36)) * 32 * 10**36 / assetPriceInZg)))
-                  }
-                }}>
-                  Max
-                </button>
-              </div>
-              <div className='flex flex-col gap-5 p-5 bg-[#001f0b] border border-[#0bff72] rounded-2xl'>
-                <div className='flex items-center justify-center gap-5'>
-                  <button 
-                    className='inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-[#0bff72] h-8 w-8 shrink-0 rounded-full bg-[#00260d] hover:opacity-80'
-                    onClick={() => {
-                      setInputAmount(formatEth(BigInt(Number(parseEther(inputAmount)) - 32 * 10**36 / assetPriceInZg)))
-                    }}
-                    disabled={Math.round(Number(parseEther(inputAmount)) * assetPriceInZg / (32 * 10**36) * 10000) / 10000 === 0}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-minus h-4 w-4"><path d="M5 12h14"></path></svg>
-                    <span className="sr-only">Decrease</span>
-                  </button>
-                  <div className="w-48 flex flex-col items-center">
-                    <input className="flex w-full rounded-md border border-input ring-offset-background file:border-0 file:bg-transparent text-white file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 h-auto p-0 text-5xl font-bold text-center border-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [appearance:textfield] [&amp;::-webkit-outer-spin-button]:appearance-none [&amp;::-webkit-inner-spin-button]:appearance-none"
-                        placeholder="validatorsToRedeem" pattern="\d{1,2}" maxLength={2} autoComplete="off" readOnly value={Math.round(Number(parseEther(inputAmount)) * assetPriceInZg / (32 * 10**36) * 10000) / 10000}
-                        name="validatorsToRedeem" />
-                    <div className="text-xs uppercase text-muted-foreground text-white">Validators</div>
+                <div className="flex flex-col justify-center relative">
+                  <div className="flex flex-col justify-center ">
+                    <input
+                      placeholder="0"
+                      value={inputAmount}
+                      onChange={(e) => setInputAmount(e.currentTarget.value)}
+                      type="text"
+                      className="bg-[#001f0b] border focus:ring-transparent focus:outline-0 focus:shadow-none focus:outline-none focus:border-[#45ff76] text-white h-12 border-[#45ff76] font-mono text-md font-medium text-left px-4 py-3 md:pr-5 rounded-lg md:rounded-xl"
+                    />
                   </div>
-                  <button 
-                    className='inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-[#0bff72] h-8 w-8 shrink-0 rounded-full bg-[#00260d] hover:opacity-80'
+                  <button
+                    className="border border-[#45ff76] bg-[#00260d] hover:bg-opacity-80 text-style-sub text-[#6df791] absolute right-0 mr-2 md:mr-5 py-1.5 px-3 rounded-lg"
+                    type="button"
                     onClick={() => {
-                      setInputAmount(formatEth(BigInt(Number(parseEther(inputAmount)) + 32 * 10**36 / assetPriceInZg)))
+                      if (zgETHBalance) {
+                        setInputAmount(formatEther(BigInt(zgETHBalance)))
+                      }
                     }}
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-plus h-4 w-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
-                    <span className="sr-only">Inrease</span>
+                    MAX
                   </button>
                 </div>
               </div>
-            </div>}
+            )}
+            {(activeAsset.symbol === 'ETH' ||
+              activeAsset.symbol === 'WETH') && (
+              <div className="flex flex-col">
+                <div className="flex flex-row justify-end text-sm font-medium text-white items-center">
+                  <span>Available:&nbsp;</span>
+                  <span className="text-xs">
+                    <div>{`${formatEth(zgETHBalance)} zgETH`}</div>
+                  </span>
+                  <button
+                    className="ml-2 text-[#0bff72] font-bold hover:opacity-80"
+                    onClick={() => {
+                      if (zgETHBalance) {
+                        setInputAmount(
+                          formatEth(
+                            BigInt(
+                              (Math.floor(
+                                (zgETHBalance * assetPriceInZg) /
+                                  (32 * 10 ** 36),
+                              ) *
+                                32 *
+                                10 ** 36) /
+                                assetPriceInZg,
+                            ),
+                          ),
+                        )
+                      }
+                    }}
+                  >
+                    Max
+                  </button>
+                </div>
+                <div className="flex flex-col gap-5 p-5 bg-[#001f0b] border border-[#0bff72] rounded-2xl">
+                  <div className="flex items-center justify-center gap-5">
+                    <button
+                      className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-[#0bff72] h-8 w-8 shrink-0 rounded-full bg-[#00260d] hover:opacity-80"
+                      onClick={() => {
+                        setInputAmount(
+                          formatEth(
+                            BigInt(
+                              Number(parseEther(inputAmount)) -
+                                (32 * 10 ** 36) / assetPriceInZg,
+                            ),
+                          ),
+                        )
+                      }}
+                      disabled={
+                        Math.round(
+                          ((Number(parseEther(inputAmount)) * assetPriceInZg) /
+                            (32 * 10 ** 36)) *
+                            10000,
+                        ) /
+                          10000 ===
+                        0
+                      }
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#fff"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-minus h-4 w-4"
+                      >
+                        <path d="M5 12h14"></path>
+                      </svg>
+                      <span className="sr-only">Decrease</span>
+                    </button>
+                    <div className="w-48 flex flex-col items-center">
+                      <input
+                        className="flex w-full rounded-md border border-input ring-offset-background file:border-0 file:bg-transparent text-white file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 h-auto p-0 text-5xl font-bold text-center border-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 [appearance:textfield] [&amp;::-webkit-outer-spin-button]:appearance-none [&amp;::-webkit-inner-spin-button]:appearance-none"
+                        placeholder="validatorsToRedeem"
+                        pattern="\d{1,2}"
+                        maxLength={2}
+                        autoComplete="off"
+                        readOnly
+                        value={
+                          Math.round(
+                            ((Number(parseEther(inputAmount)) *
+                              assetPriceInZg) /
+                              (32 * 10 ** 36)) *
+                              10000,
+                          ) / 10000
+                        }
+                        name="validatorsToRedeem"
+                      />
+                      <div className="text-xs uppercase text-muted-foreground text-white">
+                        Validators
+                      </div>
+                    </div>
+                    <button
+                      className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-[#0bff72] h-8 w-8 shrink-0 rounded-full bg-[#00260d] hover:opacity-80"
+                      onClick={() => {
+                        setInputAmount(
+                          formatEth(
+                            BigInt(
+                              Number(parseEther(inputAmount)) +
+                                (32 * 10 ** 36) / assetPriceInZg,
+                            ),
+                          ),
+                        )
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#fff"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-plus h-4 w-4"
+                      >
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5v14"></path>
+                      </svg>
+                      <span className="sr-only">Inrease</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -483,17 +509,18 @@ export default function Index() {
         <div className="flex justify-between items-center">
           <div className="text-white text-sm">Exchange Rate:</div>
           <div className="text-white font-semibold text-sm">
-            {`${Number(formatEther(BigInt(assetPriceInZg))).toFixed(4)} ${asset} = 1 zgETH`}
+            {`${Number(formatEther(BigInt(assetPriceInZg))).toFixed(
+              4,
+            )} ${asset} = 1 zgETH`}
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <div className="text-white text-sm flex items-center gap-2">
-            Referral Bonus
-            <Tooltip className="p-2 text-sm text-gray-900">
-              You were referred by {getReferrerId()}
-            </Tooltip>
+          <div className="text-white text-sm">Maximum Withdraw</div>
+          <div className="text-white font-semibold text-sm">
+            {`${Number(formatEther(BigInt(maxWithdrawAmount))).toFixed(
+              4,
+            )} ${asset}`}
           </div>
-          <div className="text-white font-semibold text-sm">10%</div>
         </div>
         {!isApproved && (
           <button
@@ -508,9 +535,9 @@ export default function Index() {
               if (Number(amount) > assetAllowance) {
                 contractWrite.writeContract({
                   abi: zgETHABI,
-                  address: activeAsset.address,
+                  address: contracts.zgETH[hubChainId],
                   functionName: 'approve',
-                  args: [contracts.lrtDepositPool[chainId], amount],
+                  args: [contracts.withdrawalManager, amount],
                 })
               }
             }}
@@ -520,13 +547,19 @@ export default function Index() {
         )}
         <button
           className={`${
-            canStake ? 'hover:opacity-90' : 'opacity-60'
+            canUnstake ? 'hover:opacity-90' : 'opacity-60'
           } bg-[#57ff85] text-white text-2xl font-semibold px-3 py-4 self-center w-full mt-2 px-6 py-3 md:py-4 rounded-2xl btn-glow`}
-          onClick={() => handleStake()}
+          onClick={() => handleClick()}
         >
-          {/* {stakeButtonText} */}
-          Coming Soon
+          {unstakeButtonText}
         </button>
+        <div className="px-3 py-2 bg-[#ccb142] rounded-xl flex flex-row items-center">
+          <img src={WarningIcon} className="w-6 h-6 flex-shrink-0" />
+          <div className="text-sm text-[#00260d] text-center">
+            Unstake requests are processed within 7-10 days, subject to exit
+            queue on beacon chain and delays imposed by EigenLayer
+          </div>
+        </div>
       </div>
     </>
   )

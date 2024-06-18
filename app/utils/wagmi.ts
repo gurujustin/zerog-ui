@@ -11,6 +11,7 @@ import {
   mantle,
   optimismSepolia,
   baseSepolia,
+  holesky,
 } from 'wagmi/chains'
 import { Chain, connectorsForWallets, getDefaultConfig } from '@rainbow-me/rainbowkit'
 import {
@@ -82,6 +83,7 @@ export const config = getDefaultConfig({
     base,
     fraxtal,
     mode,
+    holesky,
     // mantle,
     // scroll,
     // linea
@@ -100,6 +102,7 @@ export const config = getDefaultConfig({
     [base.id]: http('https://endpoints.omniatech.io/v1/base/mainnet/public'),
     [fraxtal.id]: http('https://rpc.frax.com'),
     [mode.id]: http('https://mainnet.mode.network'),
+    [holesky.id]: http('https://rpc.holesky.ethpandaops.io'),
     // [mantle.id]: http('https://rpc.mantle.xyz'),
     // [scroll.id]: http('https://scroll-mainnet.chainstacklabs.com'),
     // [linea.id]: http('https://linea.blockpi.network/v1/rpc/public'),
